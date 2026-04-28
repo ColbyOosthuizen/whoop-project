@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"/c/Users/colby/OneDrive/Desktop/Second brain/KJ OS Template\" && git pull",
+            "statusMessage": "Syncing vault from cloud..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"/c/Users/colby/OneDrive/Desktop/Second brain/KJ OS Template\" && git add . && (git diff --staged --quiet || git commit -m \"Auto-sync: $(date '+%Y-%m-%d %H:%M')\") && git push",
+            "statusMessage": "Syncing vault to cloud..."
+          }
+        ]
+      }
+    ]
+  }
+}
