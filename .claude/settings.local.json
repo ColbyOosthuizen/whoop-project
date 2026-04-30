@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git config *)"
+      "Bash(git config *)",
+      "Bash(mkdir -p \"/c/Users/colby/OneDrive/Desktop/Second brain/KJ OS Template/.claude/commands\")",
+      "Bash(mkdir -p \"/c/Users/colby/OneDrive/Desktop/Second brain/KJ OS Template/.claude/agents\")"
     ]
   }
 }
