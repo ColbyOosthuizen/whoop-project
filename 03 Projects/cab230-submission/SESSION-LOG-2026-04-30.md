@@ -29,18 +29,19 @@
 - Created `cab230-submission/` folder with: `dist/`, `src/`, `public/`, config files
 - Note: still needs `report.pdf` before zipping and submitting to Gradescope
 
-### Phase 5 — Generated Word report
-- Inspected `CAB230ClientSideReportTemplate (1).docx` via Word COM automation to map exact heading names and document structure
-- Wrote `fill-report.ps1` — opens the template, finds each heading pair, replaces placeholder body text with actual report content using `Selection.TypeText()` (not `Range.Delete()` — that fails on ranges spanning table content)
-- Generated `report.docx` in `cab230-submission/` — covers all sections: Introduction, Use of Endpoints, Modules Used, Application Design (Nav, Usability, Accessibility), Technical Description (Architecture, Test Plan, Difficulties), Extensions, User Guide, References
-- Report still needs: student name/number on cover page, screenshots at every `[INSERT: ...]` placeholder, export as PDF
+### Phase 5 - Rebuilt Word report
+- Rebuilt `report.docx` from scratch using the provided university report template structure in `This one mf.docx`
+- Wrote the report in Colby's voice with the required sections: Introduction, Use of End Points, Modules Used, Application Design, Technical Description, Extensions, User Guide, References, and Appendices
+- Added available app screenshots captured from the local running application
+- Exported `report.pdf` from Word
+- Replaced the old placeholder-heavy `report-draft.md` with a fresh markdown companion generated from the rebuilt report
 
 ## What still needs to be done before submission
 
-1. Add your name and student number to the cover page of `report.docx`
-2. Replace every `[INSERT: screenshot...]` with actual screenshots
-3. Export `report.docx` as `report.pdf` and drop it in `cab230-submission/`
-4. ZIP the contents of `cab230-submission/` (not `node_modules`, not `.git`)
+1. Confirm the name/student number on the cover page are correct
+2. Add extra authenticated screenshots if desired, especially Rated Rentals with a real logged-in account
+3. Package the final app build and report together according to the CAB230 submission instructions
+4. ZIP the final submission contents (not `node_modules`, not `.git`)
 5. Submit ZIP to Gradescope
 
 ## Key technical decisions
