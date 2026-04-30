@@ -10,7 +10,9 @@
       "Bash(npm -v)",
       "Bash(npm create *)",
       "Bash(npm --version)",
-      "PowerShell(npm *)"
+      "PowerShell(npm *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)"
     ]
   }
 }
