@@ -4,7 +4,13 @@
       "Bash(git config *)",
       "Bash(mkdir -p \"/c/Users/colby/OneDrive/Desktop/Second brain/KJ OS Template/.claude/commands\")",
       "Bash(mkdir -p \"/c/Users/colby/OneDrive/Desktop/Second brain/KJ OS Template/.claude/agents\")",
-      "WebFetch(domain:4.237.58.241)"
+      "WebFetch(domain:4.237.58.241)",
+      "Bash(winget install *)",
+      "Bash(export PATH=\"/c/Program Files/nodejs:$PATH\")",
+      "Bash(npm -v)",
+      "Bash(npm create *)",
+      "Bash(npm --version)",
+      "PowerShell(npm *)"
     ]
   }
 }
