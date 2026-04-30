@@ -1,13 +1,28 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useLocation } from 'react-router-dom'
 import { getRentalById, searchRentals } from '../services/(C) rentalsApi'
 import { getRatingForRental, submitRating } from '../services/(C) ratingsApi'
-import { useAuth } from '../context/(C) AuthContext'
+import { useAuth } from '../context/(C) authContextCore'
 import RentalMap from '../components/(C) RentalMap'
 import StarRating from '../components/(C) StarRating'
 
+function formatDescription(description) {
+  return String(description)
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .split(/\n+/)
+    .map(line => line.trim())
+    .filter(Boolean)
+}
+
 export default function IndividualRentalPage() {
   const { id } = useParams()
+  const location = useLocation()
   const { isAuthenticated, token } = useAuth()
   const [rental, setRental] = useState(null)
   const [samePostcode, setSamePostcode] = useState([])
@@ -18,24 +33,41 @@ export default function IndividualRentalPage() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    setLoading(true)
-    setError(null)
-    setRental(null)
-    setSamePostcode([])
+    let ignore = false
 
-    getRentalById(id)
-      .then(async (data) => {
+    async function loadRental() {
+      setLoading(true)
+      setError(null)
+      setRental(null)
+      setSamePostcode([])
+
+      try {
+        const data = await getRentalById(id)
+        if (ignore) return
         setRental(data)
+
         try {
           const res = await searchRentals(data.state, null, 1)
-          const all = res.rentals ?? res.data ?? (Array.isArray(res) ? res : [])
+          if (ignore) return
+          const all = res.data
           setSamePostcode(
             all.filter(r => String(r.postcode) === String(data.postcode) && String(r.id) !== String(id)).slice(0, 5)
           )
-        } catch (_) {}
-      })
-      .catch(e => setError(e.message))
-      .finally(() => setLoading(false))
+        } catch {
+          // Same-postcode suggestions are optional; keep the main rental page usable.
+        }
+      } catch (e) {
+        if (!ignore) setError(e.message)
+      } finally {
+        if (!ignore) setLoading(false)
+      }
+    }
+
+    loadRental()
+
+    return () => {
+      ignore = true
+    }
   }, [id])
 
   useEffect(() => {
@@ -78,8 +110,10 @@ export default function IndividualRentalPage() {
   if (!rental) return null
 
   const address = rental.streetAddress ?? rental.address ?? 'Address not available'
-  const lat = rental.latitude ?? rental.lat
-  const lng = rental.longitude ?? rental.lng ?? rental.lon
+  const descriptionLines = rental.description ? formatDescription(rental.description) : []
+  const lat = rental.latitude
+  const lng = rental.longitude
+  const hasMapCoordinates = lat != null && lng != null
 
   return (
     <div className="container py-4">
@@ -96,8 +130,8 @@ export default function IndividualRentalPage() {
               { label: 'Property Type', value: rental.propertyType ?? '-' },
               { label: 'Bedrooms', value: rental.bedrooms ?? '-' },
               { label: 'Bathrooms', value: rental.bathrooms ?? '-' },
-              { label: 'Parking', value: rental.parking ?? rental.parks ?? '-' },
-              { label: 'Agency', value: rental.agency ?? '-' },
+              { label: 'Parking', value: rental.parkingSpaces ?? '-' },
+              { label: 'Agency', value: rental.agencyName ?? '-' },
             ].map(({ label, value }) => (
               <div key={label} className="col-6 col-md-4">
                 <div className="card border-0 bg-light p-3 h-100">
@@ -108,10 +142,14 @@ export default function IndividualRentalPage() {
             ))}
           </div>
 
-          {rental.description && (
+          {descriptionLines.length > 0 && (
             <div className="mb-4">
               <h5>Description</h5>
-              <p className="text-muted">{rental.description}</p>
+              <div className="text-muted">
+                {descriptionLines.map((line, index) => (
+                  <p className="mb-2" key={`${line}-${index}`}>{line}</p>
+                ))}
+              </div>
             </div>
           )}
 
@@ -122,14 +160,14 @@ export default function IndividualRentalPage() {
             <StarRating currentRating={currentRating} onRate={handleRate} disabled={!isAuthenticated} />
             {!isAuthenticated && (
               <p className="text-muted small mt-2">
-                <Link to="/login">Log in</Link> to rate this property.
+                <Link to="/login" state={{ from: `${location.pathname}${location.search}${location.hash}` }}>Log in</Link> to rate this property.
               </p>
             )}
           </div>
         </div>
 
         <div className="col-lg-4">
-          {lat && lng ? (
+          {hasMapCoordinates ? (
             <div className="mb-4">
               <h5>Location</h5>
               <RentalMap lat={lat} lng={lng} address={address} />

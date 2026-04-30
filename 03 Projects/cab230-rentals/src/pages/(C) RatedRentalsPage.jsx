@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getRatedRentals } from '../services/(C) ratingsApi'
-import { useAuth } from '../context/(C) AuthContext'
+import { useAuth } from '../context/(C) authContextCore'
 import Paginator from '../components/(C) Paginator'
 
 const PAGE_SIZE = 20

@@ -13,6 +13,10 @@ L.Icon.Default.mergeOptions({
 })
 
 export default function RentalMap({ lat, lng, address }) {
+  if (lat == null || lng == null) {
+    return <div className="alert alert-secondary">Map not available for this property.</div>
+  }
+
   return (
     <MapContainer center={[lat, lng]} zoom={14} style={{ height: '400px', width: '100%', borderRadius: '8px' }}>
       <TileLayer

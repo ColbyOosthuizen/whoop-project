@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { registerUser } from '../services/(C) authApi'
 
 export default function RegisterPage() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
@@ -15,7 +16,7 @@ export default function RegisterPage() {
     setLoading(true)
     try {
       await registerUser(email, password)
-      navigate('/login', { state: { registered: true } })
+      navigate('/login', { state: { registered: true, from: location.state?.from } })
     } catch (e) {
       setError(e.message)
     } finally {
@@ -28,7 +29,10 @@ export default function RegisterPage() {
       <div className="row justify-content-center">
         <div className="col-md-5 col-lg-4">
           <div className="card shadow-sm p-4">
-            <h3 className="text-center mb-4">Create Account</h3>
+            <h3 className="text-center mb-2">Create Account</h3>
+            <p className="text-center text-muted small mb-4">
+              Accounts let you rate rental properties and keep a private list of everything you've reviewed.
+            </p>
             {error && <div className="alert alert-danger py-2">{error}</div>}
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
@@ -57,7 +61,7 @@ export default function RegisterPage() {
               </button>
             </form>
             <p className="text-center text-muted mt-3 mb-0">
-              Already have an account? <Link to="/login">Log in</Link>
+              Already have an account? <Link to="/login" state={{ from: location.state?.from }}>Log in</Link>
             </p>
           </div>
         </div>

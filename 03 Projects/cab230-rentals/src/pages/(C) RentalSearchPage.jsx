@@ -19,12 +19,12 @@ export default function RentalSearchPage() {
 
   useEffect(() => {
     getStates().then(data => {
-      const list = data.states ?? data
+      const list = data
       setStates(Array.isArray(list) ? list : [])
     }).catch(() => {})
 
     getPropertyTypes().then(data => {
-      const list = data.propertyTypes ?? data
+      const list = data
       setPropertyTypes(Array.isArray(list) ? list : [])
     }).catch(() => {})
   }, [])
@@ -34,10 +34,16 @@ export default function RentalSearchPage() {
     setError(null)
     try {
       const data = await searchRentals(selectedState, selectedType, page)
-      const rentals = data.rentals ?? data.data ?? (Array.isArray(data) ? data : [])
+      const rentals = data.data
       setResults(rentals)
       const pagination = data.pagination ?? {}
-      setHasNext(pagination.hasNext ?? pagination.nextPage != null ?? rentals.length === 10)
+      if (pagination.hasNext !== undefined) {
+        setHasNext(pagination.hasNext)
+      } else if (pagination.nextPage !== undefined) {
+        setHasNext(pagination.nextPage !== null)
+      } else {
+        setHasNext(rentals.length === 10)
+      }
     } catch (e) {
       setError(e.message)
       setResults([])
