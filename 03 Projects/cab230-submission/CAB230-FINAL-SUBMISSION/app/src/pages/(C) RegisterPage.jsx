@@ -36,8 +36,9 @@ export default function RegisterPage() {
             {error && <div className="alert alert-danger py-2">{error}</div>}
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label className="form-label">Email</label>
+                <label htmlFor="register-email" className="form-label">Email</label>
                 <input
+                  id="register-email"
                   type="email"
                   className="form-control"
                   value={email}
@@ -47,8 +48,9 @@ export default function RegisterPage() {
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Password</label>
+                <label htmlFor="register-password" className="form-label">Password</label>
                 <input
+                  id="register-password"
                   type="password"
                   className="form-control"
                   value={password}

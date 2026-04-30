@@ -108,7 +108,7 @@ The main compromises are around feedback and validation. The postcode field curr
 
 ### Accessibility
 
-The application partially meets the W3C Priority 1 checklist. Form controls use visible labels and htmlFor/id pairs on the search, login, and register pages. Table headers are present in the Rated Rentals table, and AG Grid supplies column headers for the search table. The app uses clear language in its own interface labels and avoids flickering or rapidly changing content.
+The application partially meets the W3C Priority 1 checklist. Form controls use visible labels with htmlFor attributes and matching id attributes on inputs across the search, login, and register pages. Table headers are present in the Rated Rentals table, and AG Grid supplies column headers for the search table. The app uses clear language in its own interface labels and avoids flickering or rapidly changing content.
 
 There are still accessibility weaknesses. The Leaflet map is visual and should have a stronger text alternative or ARIA label describing that it shows the property location. The star rating control uses star symbols and colour, although the current rating is also displayed as text once a rating exists. Dynamic AG Grid row loading may not be announced clearly to screen reader users.
 

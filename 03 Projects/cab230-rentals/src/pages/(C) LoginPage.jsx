@@ -44,8 +44,9 @@ export default function LoginPage() {
             {error && <div className="alert alert-danger py-2">{error}</div>}
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
-                <label className="form-label">Email</label>
+                <label htmlFor="login-email" className="form-label">Email</label>
                 <input
+                  id="login-email"
                   type="email"
                   className="form-control"
                   value={email}
@@ -55,8 +56,9 @@ export default function LoginPage() {
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Password</label>
+                <label htmlFor="login-password" className="form-label">Password</label>
                 <input
+                  id="login-password"
                   type="password"
                   className="form-control"
                   value={password}
