@@ -20,7 +20,7 @@ export default function NavBar() {
         <div className="collapse navbar-collapse" id="navMenu">
           <ul className="navbar-nav ms-auto align-items-lg-center">
             <li className="nav-item"><Link className="nav-link" to="/">Home</Link></li>
-            <li className="nav-item"><a className="nav-link" href="/#about">About</a></li>
+            <li className="nav-item"><Link className="nav-link" to="/#about">About</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/search">Rental Search</Link></li>
             {isAuthenticated ? (
               <>

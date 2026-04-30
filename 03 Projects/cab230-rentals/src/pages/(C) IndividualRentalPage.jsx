@@ -47,11 +47,10 @@ export default function IndividualRentalPage() {
         setRental(data)
 
         try {
-          const res = await searchRentals(data.state, null, 1)
+          const res = await searchRentals({ postcode: data.postcode, page: 1 })
           if (ignore) return
-          const all = res.data
           setSamePostcode(
-            all.filter(r => String(r.postcode) === String(data.postcode) && String(r.id) !== String(id)).slice(0, 5)
+            res.data.filter(r => String(r.id) !== String(id)).slice(0, 5)
           )
         } catch {
           // Same-postcode suggestions are optional; keep the main rental page usable.

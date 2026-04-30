@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AuthContext } from './(C) authContextCore'
 
 export function AuthProvider({ children }) {
@@ -14,8 +14,13 @@ export function AuthProvider({ children }) {
     setToken(null)
   }
 
+  useEffect(() => {
+    window.addEventListener('auth:expired', logout)
+    return () => window.removeEventListener('auth:expired', logout)
+  }, [])
+
   return (
-    <AuthContext.Provider value={{ token, login, logout, isAuthenticated: token !== null }}>
+    <AuthContext.Provider value={{ token, login, logout, isAuthenticated: !!token }}>
       {children}
     </AuthContext.Provider>
   )

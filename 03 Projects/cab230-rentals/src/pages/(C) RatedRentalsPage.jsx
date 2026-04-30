@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { getRatedRentals } from '../services/(C) ratingsApi'
+import { getRentalById } from '../services/(C) rentalsApi'
 import { useAuth } from '../context/(C) authContextCore'
 import Paginator from '../components/(C) Paginator'
 
@@ -15,13 +16,28 @@ export default function RatedRentalsPage() {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    getRatedRentals(token)
-      .then(data => {
-        const ratings = data.ratings ?? data.data ?? (Array.isArray(data) ? data : [])
-        setAllRatings(ratings)
-      })
-      .catch(e => setError(e.message))
-      .finally(() => setLoading(false))
+    async function load() {
+      try {
+        const data = await getRatedRentals(token)
+        const ratings = data.data ?? []
+        const enriched = await Promise.all(
+          ratings.map(async r => {
+            try {
+              const rental = await getRentalById(r.rentalId)
+              return { ...rental, id: r.rentalId, rating: r.rating, dateTime: r.dateTime }
+            } catch {
+              return { id: r.rentalId, rating: r.rating, dateTime: r.dateTime }
+            }
+          })
+        )
+        setAllRatings(enriched)
+      } catch (e) {
+        setError(e.message)
+      } finally {
+        setLoading(false)
+      }
+    }
+    load()
   }, [token])
 
   const totalPages = Math.max(1, Math.ceil(allRatings.length / PAGE_SIZE))
@@ -50,7 +66,7 @@ export default function RatedRentalsPage() {
 
       {allRatings.length === 0 ? (
         <div className="alert alert-info">
-          You haven't rated any rentals yet. <a href="/search">Search for properties</a> to get started.
+          You haven't rated any rentals yet. <Link to="/search">Search for properties</Link> to get started.
         </div>
       ) : (
         <>
@@ -69,11 +85,11 @@ export default function RatedRentalsPage() {
               <tbody>
                 {pageData.map((r, i) => (
                   <tr
-                    key={r.id ?? r.rental_id ?? i}
+                    key={r.id ?? i}
                     style={{ cursor: 'pointer' }}
-                    onClick={() => navigate(`/rentals/${r.rental_id ?? r.id}`)}
+                    onClick={() => navigate(`/rentals/${r.id}`)}
                   >
-                    <td>{r.title ?? r.address ?? r.streetAddress ?? 'Property'}</td>
+                    <td>{r.title ?? r.streetAddress ?? 'Property'}</td>
                     <td>{r.suburb ?? '-'}</td>
                     <td>{r.state ?? '-'}</td>
                     <td>
@@ -85,7 +101,7 @@ export default function RatedRentalsPage() {
                       </span>
                     </td>
                     <td className="text-muted small">
-                      {r.created_at ? new Date(r.created_at).toLocaleDateString() : '-'}
+                      {r.dateTime ? new Date(r.dateTime).toLocaleDateString() : '-'}
                     </td>
                   </tr>
                 ))}
@@ -94,6 +110,7 @@ export default function RatedRentalsPage() {
           </div>
           <Paginator
             currentPage={currentPage}
+            totalPages={totalPages}
             onPrev={() => setCurrentPage(p => p - 1)}
             onNext={() => setCurrentPage(p => p + 1)}
             hasPrev={currentPage > 1}
