@@ -5,8 +5,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"/c/Users/colby/OneDrive/Desktop/Second brain/KJ OS Template\" && git pull",
-            "statusMessage": "Syncing vault from cloud..."
+            "command": "cd \"/c/Users/colby/OneDrive/Documents/Claude second-brain\" && git pull origin main",
+            "statusMessage": "Jarvis: Syncing vault from GitHub..."
           }
         ]
       }
@@ -16,8 +16,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd \"/c/Users/colby/OneDrive/Desktop/Second brain/KJ OS Template\" && git add . && (git diff --staged --quiet || git commit -m \"Auto-sync: $(date '+%Y-%m-%d %H:%M')\") && git push",
-            "statusMessage": "Syncing vault to cloud..."
+            "command": "cd \"/c/Users/colby/OneDrive/Documents/Claude second-brain\" && git add . && (git diff --staged --quiet || git commit -m \"Auto-sync: $(date '+%Y-%m-%d %H:%M')\") && git push origin main",
+            "statusMessage": "Jarvis: Pushing vault to GitHub..."
           }
         ]
       }

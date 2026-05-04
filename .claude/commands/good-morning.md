@@ -1,28 +1,32 @@
 Run the morning briefing for Colby.
 
 Read the vault silently before saying anything:
-1. `GOALS.md` — current goals and progress
-2. `CLAUDE.md` (vault level) — weekly update section, any in-progress notes
-3. Every active project folder under `03 Projects/` — read each project's `CLAUDE.md` for status, current phase, and open tasks
-4. Note any projects with no `CLAUDE.md` — flag them as untracked
+1. `GOALS.md` — what's active, blocked, and next
+2. `CLAUDE.md` — rules, structure, weekly update
+3. The latest file in `01 Daily Logs/` — where the last session left off
+4. Every active project folder under `03 Projects/` — read each overview for status and open problems
+5. Check `00 Inbox/` for any uncategorized captures that need processing
 
 Then deliver the briefing in this format:
 
 ```
 ## Good morning, Colby.
 
-### What's in progress
-- [Project]: [one sentence on current status]
+### Where we left off
+- [Summary of last session from the daily log]
 
-### What's next
-- [Project]: [the most logical next task or decision]
+### What's active
+- [Project]: [one sentence on current status and next step]
 
-### Anything to flag
-- [Blockers, stale projects, decisions unmade, anything needing attention]
+### What needs attention
+- [Blockers, deadlines approaching, stale projects, inbox items to process]
 - (or "Nothing to flag — all clear.")
+
+### Recommended focus
+- [The single most important thing to work on right now, and why]
 ```
 
-Keep it tight. No padding, no filler. One line per project.
+Keep it tight. No padding, no filler. One line per item.
 
 If there are no active projects, say so and suggest starting one.
 

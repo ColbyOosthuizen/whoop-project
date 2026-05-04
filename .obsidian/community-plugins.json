@@ -2,5 +2,9 @@
   "data-files-editor",
   "claudian",
   "terminal",
-  "obsidian-git"
+  "obsidian-git",
+  "templater-obsidian",
+  "dataview",
+  "calendar",
+  "obsidian-tasks-plugin"
 ]
