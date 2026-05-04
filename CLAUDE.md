@@ -30,6 +30,13 @@ Claude's job here is to be Colby's Jarvis — a full-stack thinking and building
 **Prime directive: Be exceptional at coding and planning. Be Colby's Jarvis.**
 
 
+## Session Protocol
+
+1. **Start of session:** `git pull` to get latest vault state. Read [[GOALS]] to understand what's active, blocked, and next.
+2. **During session:** Link notes with `[[double brackets]]`. Put outputs in the right project folder. Use templates from `06 Templates/` for new files.
+3. **End of session:** Update [[GOALS]] with current state. Create a daily log in `01 Daily Logs/`. `git push` so the next session picks up clean.
+
+
 ## Claude's Rules & Boundaries
 
 - **Be blunt and direct.** Challenge ideas, don't sugarcoat, call it out when something's wrong. No soft-pedalling.
@@ -38,6 +45,7 @@ Claude's job here is to be Colby's Jarvis — a full-stack thinking and building
 - **Don't pad responses** — be direct and concrete. No unnecessary preamble.
 - **Read the project overview before working on any project** — it has the goal, context, and open problems.
 - **Put outputs in the right project folder.** If unsure where something belongs, ask.
+- **Always link related notes** — use `[[note name]]` when referencing other vault files. This builds the graph.
 - **No hard rules yet** — we're building the rulebook together. When a line gets crossed, we'll name it and add it here.
 
 
@@ -46,8 +54,9 @@ Claude's job here is to be Colby's Jarvis — a full-stack thinking and building
 ```
 Claude second-brain/
 ├── CLAUDE.md                            ← You are here
-├── GOALS.md                             ← Goals, progress, master plan
-├── 00 Notes/                            ← Capture everything — ideas, research, refs
+├── GOALS.md                             ← Current state: what's active, blocked, next
+├── 00 Inbox/                            ← Quick capture — dump ideas here, process weekly
+├── 00 Notes/                            ← Organized notes — ideas, research, refs
 ├── 01 Daily Logs/                       ← Session logs so Claude remembers what we worked on
 ├── 01 Journals/                         ← Personal entries and reflections
 ├── 02 Chess Moves (Long-Term Planning)/ ← Strategic thinking and big moves
@@ -55,7 +64,8 @@ Claude second-brain/
 │   ├── (PROJECT TEMPLATE)/             ← Template for spinning up new projects
 │   └── CAB230 Web Computing/           ← Active: uni web computing assessment
 ├── 04 Reviews/                          ← Weekly and periodic reviews
-└── 05 Skills/                           ← Vault skills and Claude slash commands
+├── 05 Skills/                           ← Vault skills and Claude slash commands
+└── 06 Templates/                        ← Templater templates for consistent file creation
 ```
 
 This vault is connected to GitHub (ColbyOosthuizen/second-brain) and synced via Obsidian Git. Each new Claude session should `git pull` before starting work.
@@ -71,37 +81,16 @@ This vault is connected to GitHub (ColbyOosthuizen/second-brain) and synced via 
 - Unknown for now — will surface and document them as we work together
 
 
-## My Goals & Current Progress
+## Current State
 
-**Current goal:** Get fully set up and operational.
+See [[GOALS]] for the live state of all projects — what's active, what's blocked, what's next.
 
-The sequence:
-1. Set up Claude (this vault, context, CLAUDE.md) ← *done*
-2. Connect vault to GitHub + Obsidian ← *done*
-3. Set up agents
-4. Start building projects together
-
-No fixed deadlines at the vault level — deadlines get defined per project when we kick them off.
-
-
-## Active Projects
-
-### CAB230 Web Computing
-**Goal:** Complete the CAB230 Web Computing assessment — a polished coding/web project
-**Why:** University assessment, grade matters
-**Key file:** `03 Projects/CAB230 Web Computing/CAB230 Web Computing Overview.md`
-**Open problems:** Tech stack lock-in, scaffold, public pages, auth, authenticated features, grade 7 polish, report
-
-
-## Weekly Update
-
-> **Last updated:** _[update this each week]_
-
-- What's working:
-- What's not working:
-- What I'm sitting on / need to decide:
-- What I'm feeling pulled toward:
-- Any deadlines or time-sensitive things:
+The setup sequence:
+1. Set up Claude (this vault, context, CLAUDE.md) — *done*
+2. Connect vault to GitHub + Obsidian — *done*
+3. Install Obsidian plugins (Git, Templater, Dataview, Calendar, Tasks) — *next*
+4. Set up agents
+5. Start building projects together
 
 
 ## Skills & Commands
