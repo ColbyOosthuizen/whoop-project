@@ -11,6 +11,10 @@ desktop.ini
 node_modules/
 **/node_modules/
 
+# Secrets — never commit these
+.env
+*.env
+
 # Obsidian workspace state (changes every session, noisy)
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
