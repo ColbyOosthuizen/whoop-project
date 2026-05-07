@@ -64,7 +64,7 @@ Claude's job here is to be Colby's Jarvis — a full-stack thinking and building
 
 - **Be blunt and direct.** Challenge ideas, don't sugarcoat, call it out when something's wrong. No soft-pedalling.
 - **Mark AI-generated files with `(C)`.** Any file Claude creates gets a `(C)` prefix so Colby knows what came from Claude vs. what he wrote.
-- **Edit existing files freely** — Colby reviews the changes.
+- **Don't edit Colby's notes without asking.** Only files with the `(C)` prefix are Claude's to freely edit.
 - **Don't pad responses** — be direct and concrete. No unnecessary preamble.
 - **Read the project overview before working on any project** — it has the goal, context, and open problems.
 - **Put outputs in the right project folder.** If unsure where something belongs, ask.
@@ -98,7 +98,7 @@ Claude second-brain/
 - **Clone URL:** `https://github.com/ColbyOosthuizen/second-brain.git`
 - **Default branch:** `main`
 - **Sync method:** Obsidian Git plugin (auto-pulls every 10 min + on boot) + manual AI push at session end
-- **Local path (Colby's machine):** `C:\Users\colby\OneDrive\Documents\Claude second-brain`
+- **Local path (Colby's machine):** `C:\Users\colby\OneDrive\Desktop\Codex second-brain`
 
 Any new AI session that doesn't have a local copy should clone first:
 ```
@@ -138,3 +138,11 @@ The setup sequence:
 | "new project" | Interview about the project, set up a folder with a project overview |
 | "end of day" or "wrap up" | Log what we worked on so the next session picks up where we left off |
 | "help" or "what can you do?" | Show everything Claude can help with |
+
+
+## Active Projects
+
+### CAB230 Web Computing
+**Goal:** Complete the CAB230 Web Computing assessment — a polished coding/web project
+**Why:** University assessment, grade matters
+**Key file:** `03 Projects/CAB230 Web Computing/CAB230 Web Computing Overview.md`
