@@ -438,6 +438,38 @@ html, body {
 
 code { font-family: "SF Mono", Consolas, monospace; background: var(--bg); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
 
+/* ── Proposal list (Plan My Week) ────────────────────────────── */
+
+.proposal-list { display: flex; flex-direction: column; gap: 10px; }
+
+.proposal-row {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.proposal-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.proposal-date { font-weight: 600; font-size: 13px; }
+.proposal-time { color: var(--text-muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+.proposal-title { font-size: 14px; font-weight: 500; }
+.proposal-desc { font-size: 12px; line-height: 1.5; }
+.proposal-actions { display: flex; align-items: center; gap: 12px; margin-top: 4px; }
+
+.proposal-row .recovery-zone {
+    font-size: 10px;
+    padding: 2px 8px;
+}
+
 /* ── Scrollbar ───────────────────────────────────────────────── */
 
 ::-webkit-scrollbar { width: 10px; }

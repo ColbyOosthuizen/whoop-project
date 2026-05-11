@@ -210,3 +210,27 @@ project: Tennis
             return {"success": True, "event": result}
         except Exception as e:
             return {"success": False, "error": str(e)}
+
+    # ── Training scheduler ────────────────────────────────────────────────────
+
+    def schedule_propose_week(self):
+        """Generate training block proposals for the next 7 days."""
+        try:
+            import training_scheduler
+            return {"success": True, **training_scheduler.propose_week(days=7)}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    def schedule_accept_block(self, payload):
+        """Accept a single training block and write it to Google Calendar."""
+        try:
+            import calendar_sync
+            result = calendar_sync.create_event(
+                title=payload["title"],
+                start_iso=payload["start_iso"],
+                end_iso=payload["end_iso"],
+                description=payload.get("description", ""),
+            )
+            return {"success": True, "event": result}
+        except Exception as e:
+            return {"success": False, "error": str(e)}

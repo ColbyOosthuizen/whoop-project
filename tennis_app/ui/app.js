@@ -60,6 +60,7 @@ function bindActions() {
     $('#match-form')?.addEventListener('submit', handleMatchSubmit);
     $('#calendar-refresh')?.addEventListener('click', loadCalendarEvents);
     $('#event-form')?.addEventListener('submit', handleEventSubmit);
+    $('#plan-week')?.addEventListener('click', generatePlan);
 }
 
 // ── Clock ────────────────────────────────────────────────────────────
@@ -257,8 +258,73 @@ async function loadCalendar() {
     setupCard.classList.add('hidden');
     eventsCard.classList.remove('hidden');
     createCard.classList.remove('hidden');
+    $('#schedule-plan-card')?.classList.remove('hidden');
     setDefaultEventTimes();
     loadCalendarEvents();
+}
+
+async function generatePlan() {
+    const out = $('#plan-output');
+    out.innerHTML = '<div class="empty">Reading calendar and WHOOP... finding open windows...</div>';
+    const result = await callAPI('schedule_propose_week');
+    if (!result?.success) {
+        out.innerHTML = `<div class="empty">${escapeHtml(result?.error || 'Failed to plan')}</div>`;
+        return;
+    }
+    const { recovery, proposals } = result;
+    if (!proposals || proposals.length === 0) {
+        out.innerHTML = '<div class="empty">No open training windows found in the next 7 days.</div>';
+        return;
+    }
+    const recoveryNote = recovery == null
+        ? '<p class="muted" style="margin-bottom: 12px;">No WHOOP data yet — using default light sessions.</p>'
+        : `<p class="muted" style="margin-bottom: 12px;">Today's recovery: <strong>${recovery}%</strong>. Future days default to light sessions until daily WHOOP arrives.</p>`;
+
+    const list = proposals.map((p, i) => {
+        const intensityColor = p.intensity === 'high' ? 'zone-green' : p.intensity === 'moderate' ? 'zone-yellow' : 'zone-red';
+        const start = formatEventTime(p.start_iso, false);
+        const end = formatEventTime(p.end_iso, false);
+        return `
+            <div class="proposal-row" data-index="${i}">
+                <div class="proposal-head">
+                    <span class="proposal-date">${escapeHtml(start.date)}${p.is_today ? ' · Today' : ''}</span>
+                    <span class="proposal-time">${escapeHtml(start.time)}–${escapeHtml(end.time)} (${p.duration_minutes} min)</span>
+                    <span class="recovery-zone ${intensityColor}">${escapeHtml(p.intensity)}</span>
+                </div>
+                <div class="proposal-title">${escapeHtml(p.title)}</div>
+                <div class="proposal-desc muted">${escapeHtml(p.description)}</div>
+                <div class="proposal-actions">
+                    <button class="btn-primary btn-small" data-accept="${i}">Add to Calendar</button>
+                    <span class="proposal-status muted" data-status="${i}"></span>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    out.innerHTML = recoveryNote + '<div class="proposal-list">' + list + '</div>';
+
+    // Wire accept buttons
+    out.querySelectorAll('[data-accept]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const i = parseInt(btn.dataset.accept, 10);
+            const p = proposals[i];
+            const statusEl = out.querySelector(`[data-status="${i}"]`);
+            statusEl.textContent = 'Adding...';
+            const res = await callAPI('schedule_accept_block', {
+                title: p.title,
+                start_iso: p.start_iso,
+                end_iso: p.end_iso,
+                description: p.description,
+            });
+            if (res?.success) {
+                statusEl.textContent = 'Added.';
+                btn.disabled = true;
+                btn.textContent = 'Added';
+            } else {
+                statusEl.textContent = 'Failed: ' + (res?.error || 'unknown');
+            }
+        });
+    });
 }
 
 async function loadCalendarEvents() {
