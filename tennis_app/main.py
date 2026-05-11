@@ -16,13 +16,18 @@ def main():
         title="Jarvis — Tennis",
         url=str(UI_DIR / "index.html"),
         js_api=api,
-        width=1280,
-        height=820,
-        min_size=(1024, 700),
-        background_color="#0d1117",
+        width=1320,
+        height=860,
+        min_size=(1100, 700),
+        background_color="#070d14",
         text_select=True,
     )
-    webview.start(debug=False)
+
+    def on_started():
+        api.set_window(window)
+        api.start_auto_sync()
+
+    webview.start(on_started, debug=False)
 
 
 if __name__ == "__main__":

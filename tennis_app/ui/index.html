@@ -6,238 +6,484 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="app">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="brand">
-                <div class="brand-logo">J</div>
-                <div class="brand-text">
-                    <div class="brand-title">Jarvis</div>
-                    <div class="brand-subtitle">Tennis</div>
+<div class="app">
+
+    <!-- ── Sidebar ─────────────────────────────────────────────────── -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-logo">J</div>
+            <div class="brand-text">
+                <div class="brand-title">Jarvis</div>
+                <div class="brand-subtitle">Tennis OS</div>
+            </div>
+        </div>
+
+        <nav class="nav">
+            <button class="nav-item active" data-view="dashboard">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5A1.5 1.5 0 012.5 1h3A1.5 1.5 0 017 2.5v3A1.5 1.5 0 015.5 7h-3A1.5 1.5 0 011 5.5v-3zm8 0A1.5 1.5 0 0110.5 1h3A1.5 1.5 0 0115 2.5v3A1.5 1.5 0 0113.5 7h-3A1.5 1.5 0 019 5.5v-3zm-8 8A1.5 1.5 0 012.5 9h3A1.5 1.5 0 017 10.5v3A1.5 1.5 0 015.5 15h-3A1.5 1.5 0 011 13.5v-3zm8 0A1.5 1.5 0 0110.5 9h3A1.5 1.5 0 0115 10.5v3A1.5 1.5 0 0113.5 15h-3A1.5 1.5 0 019 13.5v-3z"/></svg>
+                </span>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" data-view="chat">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M2.678 11.894a1 1 0 01.287.801 11 11 0 00.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 01.71-.074A8 8 0 008 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894z"/></svg>
+                </span>
+                <span>Chat</span>
+            </button>
+            <button class="nav-item" data-view="council">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 100-6 3 3 0 000 6zM5.216 14A2.238 2.238 0 015 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 005 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/><path d="M4.5 8a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>
+                </span>
+                <span>Council</span>
+            </button>
+            <button class="nav-item" data-view="outreach">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V4zm2-1a1 1 0 00-1 1v.217l7 4.2 7-4.2V4a1 1 0 00-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 002 13h12a1 1 0 00.966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/></svg>
+                </span>
+                <span>Outreach</span>
+            </button>
+            <button class="nav-item" data-view="matches">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a2.5 2.5 0 012.5 2.5V4h-5v-.5A2.5 2.5 0 018 1zm3.5 3v-.5a3.5 3.5 0 10-7 0V4H1v10h14V4h-3.5zM2 5h12v8H2V5z"/></svg>
+                </span>
+                <span>Matches</span>
+            </button>
+            <button class="nav-item" data-view="calendar">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 0a.5.5 0 01.5.5V1h8V.5a.5.5 0 011 0V1h1a2 2 0 012 2v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3a2 2 0 012-2h1V.5a.5.5 0 01.5-.5zM1 4v10a1 1 0 001 1h12a1 1 0 001-1V4H1z"/></svg>
+                </span>
+                <span>Calendar</span>
+            </button>
+            <button class="nav-item" data-view="settings">
+                <span class="nav-icon">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 01-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 01.872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 012.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 012.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 01.872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 01-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 01-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 110-5.858 2.929 2.929 0 010 5.858z"/></svg>
+                </span>
+                <span>Settings</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="sync-status-bar">
+                <div class="sync-item" id="sync-whoop-indicator">
+                    <span class="sync-dot" id="sync-dot-whoop"></span>
+                    <span class="sync-label">WHOOP <span id="sync-whoop-time">—</span></span>
+                </div>
+                <div class="sync-item" id="sync-cal-indicator">
+                    <span class="sync-dot" id="sync-dot-cal"></span>
+                    <span class="sync-label">Cal <span id="sync-cal-time">—</span></span>
+                </div>
+            </div>
+            <button class="btn-text" id="open-vault">Open in Obsidian</button>
+        </div>
+    </aside>
+
+    <!-- ── Main ────────────────────────────────────────────────────── -->
+    <main class="main">
+        <header class="topbar">
+            <h1 id="view-title">Dashboard</h1>
+            <div class="topbar-right">
+                <span id="datetime" class="topbar-time"></span>
+            </div>
+        </header>
+
+        <!-- ── Dashboard ───────────────────────────────────────────── -->
+        <section class="view" id="view-dashboard">
+            <div class="dash-grid">
+                <!-- Recovery -->
+                <div class="card recovery-card">
+                    <div class="card-header">
+                        <span class="card-label">Today's Recovery</span>
+                        <button class="btn-icon" id="sync-whoop" title="Sync WHOOP">
+                            <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14"><path d="M8 3a5 5 0 104.546 2.914.5.5 0 00-.908-.417A4 4 0 118 4V3zm0 0l2 2-2 2V3z"/></svg>
+                        </button>
+                    </div>
+                    <div class="recovery-hero">
+                        <div class="recovery-num" id="recovery-score">—</div>
+                        <div class="recovery-zone" id="recovery-zone">No data</div>
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric"><div class="metric-label">HRV</div><div class="metric-val" id="metric-hrv">—</div></div>
+                        <div class="metric"><div class="metric-label">RHR</div><div class="metric-val" id="metric-rhr">—</div></div>
+                        <div class="metric"><div class="metric-label">SpO2</div><div class="metric-val" id="metric-spo2">—</div></div>
+                        <div class="metric"><div class="metric-label">Sleep</div><div class="metric-val" id="metric-sleep">—</div></div>
+                        <div class="metric"><div class="metric-label">Strain</div><div class="metric-val" id="metric-strain">—</div></div>
+                        <div class="metric"><div class="metric-label">Calories</div><div class="metric-val" id="metric-calories">—</div></div>
+                    </div>
+                    <div class="recommendation-box" id="recommendation"></div>
+                </div>
+
+                <!-- Upcoming matches -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-label">Upcoming Matches</span>
+                        <button class="btn-chip" data-view-shortcut="matches">Log match</button>
+                    </div>
+                    <div id="schedule-list" class="list-container">
+                        <div class="empty-state">No matches scheduled.</div>
+                    </div>
                 </div>
             </div>
 
-            <nav class="nav">
-                <button class="nav-item active" data-view="dashboard">
-                    <span class="nav-icon">▦</span>Dashboard
-                </button>
-                <button class="nav-item" data-view="council">
-                    <span class="nav-icon">◎</span>Council
-                </button>
-                <button class="nav-item" data-view="matches">
-                    <span class="nav-icon">◎</span>Matches
-                </button>
-                <button class="nav-item" data-view="calendar">
-                    <span class="nav-icon">▤</span>Calendar
-                </button>
-                <button class="nav-item" data-view="settings">
-                    <span class="nav-icon">◉</span>Settings
-                </button>
-            </nav>
-
-            <div class="sidebar-footer">
-                <button class="btn-text" id="open-vault">Open vault folder</button>
+            <!-- Quick actions -->
+            <div class="card quick-card">
+                <div class="card-header">
+                    <span class="card-label">Quick Actions</span>
+                </div>
+                <div class="quick-actions">
+                    <button class="btn-primary" data-view-shortcut="chat">Ask Jarvis</button>
+                    <button class="btn-primary btn-council" data-view-shortcut="council">Brief the Council</button>
+                    <button class="btn-secondary" data-view-shortcut="matches">Log a Match</button>
+                    <button class="btn-secondary" id="sync-whoop-2">Sync WHOOP</button>
+                </div>
             </div>
-        </aside>
+        </section>
 
-        <!-- Main area -->
-        <main class="main">
-            <header class="topbar">
-                <div class="topbar-left">
-                    <h1 id="view-title">Dashboard</h1>
-                </div>
-                <div class="topbar-right">
-                    <span id="datetime"></span>
-                </div>
-            </header>
-
-            <!-- Dashboard view -->
-            <section class="view" id="view-dashboard">
-                <div class="grid-2">
-                    <div class="card recovery-card" id="recovery-card">
-                        <div class="card-header">
-                            <h2>Today's Recovery</h2>
-                            <button class="btn-small" id="sync-whoop">Sync</button>
-                        </div>
-                        <div class="recovery-display">
-                            <div class="recovery-score" id="recovery-score">—</div>
-                            <div class="recovery-zone" id="recovery-zone">No data</div>
-                        </div>
-                        <div class="metrics">
-                            <div class="metric"><span class="metric-label">HRV</span><span class="metric-value" id="metric-hrv">—</span></div>
-                            <div class="metric"><span class="metric-label">RHR</span><span class="metric-value" id="metric-rhr">—</span></div>
-                            <div class="metric"><span class="metric-label">SpO2</span><span class="metric-value" id="metric-spo2">—</span></div>
-                            <div class="metric"><span class="metric-label">Sleep</span><span class="metric-value" id="metric-sleep">—</span></div>
-                            <div class="metric"><span class="metric-label">Strain</span><span class="metric-value" id="metric-strain">—</span></div>
-                            <div class="metric"><span class="metric-label">Calories</span><span class="metric-value" id="metric-calories">—</span></div>
-                        </div>
-                        <div class="recommendation" id="recommendation"></div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h2>Upcoming Matches</h2>
-                            <button class="btn-small" data-view-shortcut="matches">Log a match</button>
-                        </div>
-                        <div id="schedule-list" class="schedule-list">
-                            <div class="empty">No matches scheduled.</div>
+        <!-- ── Chat ────────────────────────────────────────────────── -->
+        <section class="view hidden" id="view-chat">
+            <div class="chat-wrap">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="chat-welcome">
+                        <div class="chat-welcome-icon">J</div>
+                        <div class="chat-welcome-text">
+                            <strong>JARVIS online.</strong> Ask me anything about your training, recovery, or matches. I have access to your live WHOOP data and calendar.
                         </div>
                     </div>
                 </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Quick Actions</h2>
+                <div class="chat-footer">
+                    <div class="chat-input-row">
+                        <textarea
+                            id="chat-input"
+                            class="chat-textarea"
+                            placeholder="Ask Jarvis anything..."
+                            rows="1"
+                        ></textarea>
+                        <button class="btn-send" id="chat-send">
+                            <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M15.854.146a.5.5 0 01.11.54l-5.819 14.547a.75.75 0 01-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 01.124-1.33L15.314.037a.5.5 0 01.54.11z"/></svg>
+                        </button>
                     </div>
-                    <div class="quick-actions">
-                        <button class="btn-primary" data-view-shortcut="council">Ask the Council</button>
-                        <button class="btn-secondary" data-view-shortcut="matches">Log a Match</button>
-                        <button class="btn-secondary" id="sync-whoop-2">Sync WHOOP</button>
+                    <div class="chat-hint">Press Enter to send · Shift+Enter for new line</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Council ──────────────────────────────────────────────── -->
+        <section class="view hidden" id="view-council">
+            <div class="council-ask-bar">
+                <input
+                    type="text"
+                    id="council-input"
+                    class="council-input"
+                    placeholder="Brief the council... e.g. 'Should I train hard tomorrow?'"
+                >
+                <button class="btn-primary" id="council-ask">Brief Council</button>
+            </div>
+
+            <!-- Council grid (hidden until response) -->
+            <div id="council-output" class="council-output"></div>
+
+            <!-- Message drafting -->
+            <div class="card draft-card">
+                <div class="card-header">
+                    <span class="card-label">Draft a Message</span>
+                </div>
+                <p class="card-sub">Jarvis drafts a WhatsApp message on your behalf. You review and copy it.</p>
+                <div class="draft-form">
+                    <input type="text" id="draft-recipient" class="form-input" placeholder="Recipient (e.g. Jake, Coach Mike)">
+                    <input type="text" id="draft-purpose" class="form-input" placeholder="Purpose (e.g. reschedule Tuesday practice, confirm match time)">
+                    <input type="text" id="draft-context" class="form-input" placeholder="Extra context (optional)">
+                    <button class="btn-secondary" id="draft-btn">Generate Draft</button>
+                </div>
+                <div id="draft-output" class="draft-output hidden">
+                    <div class="draft-label">JARVIS DRAFT</div>
+                    <div class="draft-text" id="draft-text"></div>
+                    <button class="btn-chip" id="draft-copy">Copy</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Outreach ─────────────────────────────────────────────── -->
+        <section class="view hidden" id="view-outreach">
+
+            <!-- Capacity bar -->
+            <div class="card outreach-capacity-card" id="capacity-card">
+                <div class="card-header">
+                    <span class="card-label">Today's Capacity</span>
+                    <button class="btn-chip" id="analyze-capacity">Analyse</button>
+                </div>
+                <div id="capacity-output">
+                    <p class="card-sub">Hit Analyse to read your WHOOP data and calendar and figure out how many matches you can fit in today.</p>
+                </div>
+            </div>
+
+            <!-- Send messages -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-label">Reach Out</span>
+                </div>
+                <p class="card-sub">Select players, review the AI-drafted messages, then open WhatsApp for each one. You hit Send — responses are yours to handle.</p>
+
+                <div class="outreach-slots" id="outreach-slots" style="margin-bottom:14px;display:none">
+                    <div class="form-row">
+                        <label>Available slots (edit if needed)</label>
+                        <input type="number" id="outreach-slot-count" class="form-input" min="1" max="5" value="1" style="max-width:80px">
+                    </div>
+                    <div class="form-row">
+                        <label>Context (optional)</label>
+                        <input type="text" id="outreach-note" class="form-input" placeholder="e.g. warm-up match, competitive hit, doubles">
                     </div>
                 </div>
-            </section>
 
-            <!-- Council view -->
-            <section class="view hidden" id="view-council">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>The Council</h2>
-                    </div>
-                    <p class="muted">The Council currently runs inside Claude Code. Open Claude Code in this vault and use the <code>/council &lt;your question&gt;</code> command.</p>
-                    <p class="muted">In a future update this view will let you ask the Council directly from the app and stream all 7 responses live.</p>
-                    <div class="council-roster">
-                        <div class="council-member"><strong>Head Coach</strong><span>Technique & tactics</span></div>
-                        <div class="council-member"><strong>S&C Coach</strong><span>Training load & periodization</span></div>
-                        <div class="council-member"><strong>Tournament Advisor</strong><span>Calendar & peaking</span></div>
-                        <div class="council-member"><strong>Sports Psychologist</strong><span>Mental game</span></div>
-                        <div class="council-member"><strong>Nutritionist</strong><span>Fuel & hydration</span></div>
-                        <div class="council-member"><strong>Recovery Specialist</strong><span>Sleep, HRV, red flags</span></div>
-                        <div class="council-member jarvis"><strong>Jarvis (Chief of Staff)</strong><span>Synthesizes the council</span></div>
-                    </div>
+                <div class="player-list" id="player-list">
+                    <div class="empty-state">No players yet — add them below.</div>
                 </div>
-            </section>
 
-            <!-- Matches view -->
-            <section class="view hidden" id="view-matches">
-                <div class="card">
-                    <div class="card-header">
-                        <h2>Log a Match</h2>
-                    </div>
-                    <form id="match-form" class="form">
-                        <div class="form-row">
-                            <label>Date</label>
-                            <input type="date" id="m-date" required>
+                <div style="display:flex;gap:8px;margin-top:14px;align-items:center">
+                    <button class="btn-primary" id="generate-outreach">Generate Messages</button>
+                    <span class="status-text" id="outreach-status"></span>
+                </div>
+            </div>
+
+            <!-- Generated messages -->
+            <div id="outreach-messages"></div>
+
+            <!-- Add / manage players -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-label">Players</span>
+                    <button class="btn-chip" id="show-add-player">+ Add player</button>
+                </div>
+
+                <div id="add-player-form" class="hidden" style="margin-bottom:16px">
+                    <div class="form" style="max-width:480px">
+                        <input type="hidden" id="edit-player-id">
+                        <div class="form-row-2">
+                            <div class="form-row">
+                                <label>Name</label>
+                                <input type="text" id="player-name" class="form-input" placeholder="Jake Smith">
+                            </div>
+                            <div class="form-row">
+                                <label>Level</label>
+                                <select id="player-level" class="form-input">
+                                    <option value="">Unknown</option>
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="similar">Similar to me</option>
+                                    <option value="stronger">Stronger</option>
+                                    <option value="coach">Coach</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="form-row">
-                            <label>Type</label>
-                            <select id="m-type">
-                                <option>Singles</option>
-                                <option>Doubles</option>
-                                <option>Practice</option>
-                            </select>
+                            <label>WhatsApp number (with country code)</label>
+                            <input type="text" id="player-phone" class="form-input" placeholder="+61 412 345 678">
                         </div>
                         <div class="form-row">
-                            <label>Players / Opponent</label>
-                            <input type="text" id="m-players" placeholder="e.g. Jake Smith" required>
-                        </div>
-                        <div class="form-row">
-                            <label>Location</label>
-                            <input type="text" id="m-location" placeholder="e.g. Centre court">
-                        </div>
-                        <div class="form-row">
-                            <label>Result</label>
-                            <input type="text" id="m-result" placeholder="e.g. 6-4, 6-3 W">
-                        </div>
-                        <div class="form-row">
-                            <label>Recovery (%)</label>
-                            <input type="number" id="m-recovery" min="0" max="100" placeholder="from WHOOP">
-                        </div>
-                        <div class="form-row">
-                            <label>Notes</label>
-                            <textarea id="m-notes" rows="6" placeholder="What worked, what didn't, what to focus on next time"></textarea>
+                            <label>Notes (optional)</label>
+                            <input type="text" id="player-notes" class="form-input" placeholder="e.g. big forehand, prefers morning sessions">
                         </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn-primary">Save match log</button>
-                            <span id="match-status" class="muted"></span>
+                            <button class="btn-primary" id="save-player">Save Player</button>
+                            <button class="btn-secondary" id="cancel-add-player">Cancel</button>
                         </div>
-                    </form>
-                </div>
-            </section>
-
-            <!-- Calendar view -->
-            <section class="view hidden" id="view-calendar">
-                <div class="card" id="calendar-setup-card">
-                    <div class="card-header"><h2>Google Calendar — Setup</h2></div>
-                    <div id="calendar-setup-status"></div>
-                </div>
-
-                <div class="card hidden" id="calendar-events-card">
-                    <div class="card-header">
-                        <h2>This Week</h2>
-                        <button class="btn-small" id="calendar-refresh">Refresh</button>
-                    </div>
-                    <div id="calendar-events-list">
-                        <div class="empty">Loading...</div>
                     </div>
                 </div>
 
-                <div class="card hidden" id="schedule-plan-card">
-                    <div class="card-header">
-                        <h2>Plan My Week</h2>
-                        <button class="btn-small" id="plan-week">Generate</button>
+                <div id="players-roster" class="player-roster"></div>
+            </div>
+        </section>
+
+        <!-- ── Matches ──────────────────────────────────────────────── -->
+        <section class="view hidden" id="view-matches">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-label">Log a Match</span>
+                </div>
+                <form id="match-form" class="form">
+                    <div class="form-row">
+                        <label>Date</label>
+                        <input type="date" id="m-date" class="form-input" required>
                     </div>
-                    <p class="muted">Jarvis reads your calendar and recovery, finds open windows, and proposes training blocks. You approve each one before it lands on your calendar.</p>
-                    <div id="plan-output"></div>
+                    <div class="form-row">
+                        <label>Type</label>
+                        <select id="m-type" class="form-input">
+                            <option>Singles</option>
+                            <option>Doubles</option>
+                            <option>Practice</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <label>Players / Opponent</label>
+                        <input type="text" id="m-players" class="form-input" placeholder="e.g. Jake Smith" required>
+                    </div>
+                    <div class="form-row">
+                        <label>Location</label>
+                        <input type="text" id="m-location" class="form-input" placeholder="e.g. Centre court">
+                    </div>
+                    <div class="form-row">
+                        <label>Result</label>
+                        <input type="text" id="m-result" class="form-input" placeholder="e.g. 6-4, 6-3 W">
+                    </div>
+                    <div class="form-row">
+                        <label>Recovery (%)</label>
+                        <input type="number" id="m-recovery" class="form-input" min="0" max="100" placeholder="from WHOOP">
+                    </div>
+                    <div class="form-row">
+                        <label>Notes</label>
+                        <textarea id="m-notes" class="form-input" rows="6" placeholder="What worked, what didn't, what to focus on next time"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Save Match Log</button>
+                        <span id="match-status" class="status-text"></span>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ── Calendar ─────────────────────────────────────────────── -->
+        <section class="view hidden" id="view-calendar">
+            <div class="card hidden" id="calendar-setup-card">
+                <div class="card-header"><span class="card-label">Google Calendar — Setup</span></div>
+                <div id="calendar-setup-status"></div>
+            </div>
+
+            <div class="card" id="calendar-events-card" style="padding:0;overflow:hidden">
+                <!-- View toggle bar -->
+                <div class="cal-topbar">
+                    <div class="cal-view-toggle">
+                        <button class="cal-toggle-btn active" id="toggle-month">Month</button>
+                        <button class="cal-toggle-btn" id="toggle-3day">3 Day</button>
+                    </div>
+                    <button class="btn-icon" id="calendar-refresh" title="Refresh" style="margin-right:14px">
+                        <svg viewBox="0 0 16 16" fill="currentColor" width="13" height="13"><path d="M8 3a5 5 0 104.546 2.914.5.5 0 00-.908-.417A4 4 0 118 4V3zm0 0l2 2-2 2V3z"/></svg>
+                    </button>
                 </div>
 
-                <div class="card hidden" id="calendar-create-card">
-                    <div class="card-header"><h2>Schedule a Training Block</h2></div>
-                    <form id="event-form" class="form">
-                        <div class="form-row">
-                            <label>Title</label>
-                            <input type="text" id="e-title" placeholder="e.g. Tennis — Match prep" required>
+                <!-- Month view -->
+                <div id="cal-month-view" class="cal-container">
+                    <div class="cal-left">
+                        <div class="cal-nav">
+                            <button class="cal-nav-btn" id="cal-prev">&#8249;</button>
+                            <div class="cal-month-label" id="cal-month-label"></div>
+                            <button class="cal-nav-btn" id="cal-next">&#8250;</button>
                         </div>
+                        <div class="cal-grid-head">
+                            <span>Su</span><span>Mo</span><span>Tu</span>
+                            <span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                        </div>
+                        <div class="cal-grid" id="cal-grid"></div>
+                        <div class="cal-legend">
+                            <span class="cal-legend-item"><span class="cal-dot dot-google"></span>Google</span>
+                            <span class="cal-legend-item"><span class="cal-dot dot-apple"></span>Apple</span>
+                        </div>
+                    </div>
+                    <div class="cal-right">
+                        <div class="cal-day-header">
+                            <span class="cal-day-label" id="cal-day-label">Select a day</span>
+                        </div>
+                        <div id="cal-day-events" class="cal-day-events-list">
+                            <div class="empty-state">Click a day to see events</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3-day view -->
+                <div id="cal-3day-view" class="hidden">
+                    <div class="three-day-nav">
+                        <button class="cal-nav-btn" id="threeday-prev">&#8249;</button>
+                        <span class="three-day-range" id="threeday-range"></span>
+                        <button class="cal-nav-btn" id="threeday-next">&#8250;</button>
+                        <button class="btn-chip" id="threeday-today" style="margin-left:8px">Today</button>
+                    </div>
+                    <div class="three-day-cols" id="three-day-cols"></div>
+                </div>
+            </div>
+
+            <!-- iCloud card — content written by JS based on connection status -->
+            <div class="card hidden" id="icloud-card"></div>
+
+            <div class="card hidden" id="schedule-plan-card">
+                <div class="card-header">
+                    <span class="card-label">Plan My Week</span>
+                    <button class="btn-chip" id="plan-week">Generate</button>
+                </div>
+                <p class="card-sub">Jarvis reads your calendar and WHOOP recovery, finds open windows, and proposes training blocks. You approve each before it lands on your calendar.</p>
+                <div id="plan-output"></div>
+            </div>
+
+            <div class="card hidden" id="calendar-create-card">
+                <div class="card-header"><span class="card-label">Schedule a Block</span></div>
+                <form id="event-form" class="form">
+                    <div class="form-row">
+                        <label>Title</label>
+                        <input type="text" id="e-title" class="form-input" placeholder="e.g. Tennis — Match prep" required>
+                    </div>
+                    <div class="form-row-2">
                         <div class="form-row">
                             <label>Start</label>
-                            <input type="datetime-local" id="e-start" required>
+                            <input type="datetime-local" id="e-start" class="form-input" required>
                         </div>
                         <div class="form-row">
                             <label>End</label>
-                            <input type="datetime-local" id="e-end" required>
+                            <input type="datetime-local" id="e-end" class="form-input" required>
                         </div>
-                        <div class="form-row">
-                            <label>Location</label>
-                            <input type="text" id="e-location" placeholder="optional">
-                        </div>
-                        <div class="form-row">
-                            <label>Notes</label>
-                            <textarea id="e-description" rows="3" placeholder="optional"></textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn-primary">Add to Google Calendar</button>
-                            <span id="event-status" class="muted"></span>
-                        </div>
-                    </form>
-                </div>
-            </section>
-
-            <!-- Settings view -->
-            <section class="view hidden" id="view-settings">
-                <div class="card">
-                    <div class="card-header"><h2>Settings</h2></div>
-                    <div class="setting-item">
-                        <label>Vault path</label>
-                        <code id="vault-path"></code>
                     </div>
-                    <div class="setting-item">
-                        <label>App version</label>
-                        <code id="app-version"></code>
+                    <div class="form-row">
+                        <label>Location</label>
+                        <input type="text" id="e-location" class="form-input" placeholder="optional">
+                    </div>
+                    <div class="form-row">
+                        <label>Notes</label>
+                        <textarea id="e-description" class="form-input" rows="3" placeholder="optional"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Add to Google Calendar</button>
+                        <span id="event-status" class="status-text"></span>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ── Settings ─────────────────────────────────────────────── -->
+        <section class="view hidden" id="view-settings">
+            <div class="card">
+                <div class="card-header"><span class="card-label">Jarvis AI</span></div>
+
+                <div id="anthropic-setup">
+                    <p class="card-sub" style="margin-bottom:16px">Add your Anthropic API key to enable the Chat and Council features. Get one at <span style="color:var(--accent)">console.anthropic.com</span></p>
+                    <div class="form-row" style="max-width:500px">
+                        <label>Anthropic API Key</label>
+                        <div style="display:flex;gap:8px">
+                            <input type="password" id="anthropic-key-input" class="form-input" placeholder="sk-ant-...">
+                            <button class="btn-primary" id="save-anthropic-key" style="white-space:nowrap">Save Key</button>
+                        </div>
+                        <span id="anthropic-key-status" class="status-text"></span>
                     </div>
                 </div>
-            </section>
-        </main>
-    </div>
 
-    <script src="app.js"></script>
+                <div class="divider"></div>
+
+                <div class="setting-row">
+                    <span class="setting-label">Vault path</span>
+                    <code id="vault-path" class="setting-val"></code>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-label">App version</span>
+                    <code id="app-version" class="setting-val">0.3.0</code>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-label">WHOOP auto-sync</span>
+                    <code class="setting-val">Every 30 minutes</code>
+                </div>
+                <div class="setting-row">
+                    <span class="setting-label">Calendar auto-sync</span>
+                    <code class="setting-val">Every 5 minutes</code>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+<script src="app.js"></script>
 </body>
 </html>
