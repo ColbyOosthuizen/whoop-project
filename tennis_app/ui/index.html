@@ -166,9 +166,49 @@
 
             <!-- Calendar view -->
             <section class="view hidden" id="view-calendar">
-                <div class="card">
-                    <div class="card-header"><h2>Calendar</h2></div>
-                    <p class="muted">Google Calendar integration coming in Phase 2. This is where your week and proposed training blocks will live.</p>
+                <div class="card" id="calendar-setup-card">
+                    <div class="card-header"><h2>Google Calendar — Setup</h2></div>
+                    <div id="calendar-setup-status"></div>
+                </div>
+
+                <div class="card hidden" id="calendar-events-card">
+                    <div class="card-header">
+                        <h2>This Week</h2>
+                        <button class="btn-small" id="calendar-refresh">Refresh</button>
+                    </div>
+                    <div id="calendar-events-list">
+                        <div class="empty">Loading...</div>
+                    </div>
+                </div>
+
+                <div class="card hidden" id="calendar-create-card">
+                    <div class="card-header"><h2>Schedule a Training Block</h2></div>
+                    <form id="event-form" class="form">
+                        <div class="form-row">
+                            <label>Title</label>
+                            <input type="text" id="e-title" placeholder="e.g. Tennis — Match prep" required>
+                        </div>
+                        <div class="form-row">
+                            <label>Start</label>
+                            <input type="datetime-local" id="e-start" required>
+                        </div>
+                        <div class="form-row">
+                            <label>End</label>
+                            <input type="datetime-local" id="e-end" required>
+                        </div>
+                        <div class="form-row">
+                            <label>Location</label>
+                            <input type="text" id="e-location" placeholder="optional">
+                        </div>
+                        <div class="form-row">
+                            <label>Notes</label>
+                            <textarea id="e-description" rows="3" placeholder="optional"></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Add to Google Calendar</button>
+                            <span id="event-status" class="muted"></span>
+                        </div>
+                    </form>
                 </div>
             </section>
 

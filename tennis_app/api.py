@@ -7,10 +7,11 @@ import json
 import re
 import subprocess
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 VAULT_ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(VAULT_ROOT))
 WHOOP_DIR = VAULT_ROOT / "03 Projects" / "Tennis" / "WHOOP Data"
 MATCH_LOG_DIR = VAULT_ROOT / "03 Projects" / "Tennis" / "Match Log"
 MATCH_SCHEDULE = VAULT_ROOT / "03 Projects" / "Tennis" / "(C) Match Schedule.md"
@@ -158,6 +159,54 @@ project: Tennis
         """Return info about the running app."""
         return {
             "vault": str(VAULT_ROOT),
-            "version": "0.1.0",
+            "version": "0.2.0",
             "started": datetime.now().isoformat(),
         }
+
+    # ── Google Calendar ───────────────────────────────────────────────────────
+
+    def calendar_status(self):
+        """Check whether Google Calendar is configured and authenticated."""
+        creds_exist = (VAULT_ROOT / "google_credentials.json").exists()
+        token_exist = (VAULT_ROOT / ".google_token.json").exists()
+        return {
+            "credentials_present": creds_exist,
+            "authenticated": token_exist,
+            "setup_url": "https://console.cloud.google.com",
+        }
+
+    def calendar_authenticate(self):
+        """Trigger the OAuth flow for Google Calendar."""
+        try:
+            import calendar_sync
+            calendar_sync._load_credentials()
+            return {"success": True}
+        except FileNotFoundError as e:
+            return {"success": False, "error": "Google credentials file missing. Save google_credentials.json in the vault folder first."}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    def calendar_upcoming(self, days=7):
+        """Return upcoming events from the user's primary calendar."""
+        try:
+            import calendar_sync
+            return {"success": True, "events": calendar_sync.list_upcoming(days=days)}
+        except FileNotFoundError:
+            return {"success": False, "error": "Not authenticated. Go to Settings and connect Google Calendar."}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    def calendar_create_event(self, payload):
+        """Create a calendar event. payload: title, start_iso, end_iso, location, description."""
+        try:
+            import calendar_sync
+            result = calendar_sync.create_event(
+                title=payload["title"],
+                start_iso=payload["start_iso"],
+                end_iso=payload["end_iso"],
+                location=payload.get("location", ""),
+                description=payload.get("description", ""),
+            )
+            return {"success": True, "event": result}
+        except Exception as e:
+            return {"success": False, "error": str(e)}

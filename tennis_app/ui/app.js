@@ -47,6 +47,8 @@ function switchView(view) {
         settings: 'Settings',
     };
     $('#view-title').textContent = titleMap[view] || view;
+
+    if (view === 'calendar') loadCalendar();
 }
 
 // ── Actions ──────────────────────────────────────────────────────────
@@ -56,6 +58,8 @@ function bindActions() {
     $('#sync-whoop-2')?.addEventListener('click', syncWhoop);
     $('#open-vault')?.addEventListener('click', () => callAPI('open_vault_in_explorer'));
     $('#match-form')?.addEventListener('submit', handleMatchSubmit);
+    $('#calendar-refresh')?.addEventListener('click', loadCalendarEvents);
+    $('#event-form')?.addEventListener('submit', handleEventSubmit);
 }
 
 // ── Clock ────────────────────────────────────────────────────────────
@@ -187,6 +191,148 @@ async function handleMatchSubmit(e) {
         status.textContent = `Saved → ${res.file}`;
         e.target.reset();
         setDefaultDate();
+    } else {
+        status.textContent = 'Failed: ' + (res?.error || 'unknown');
+    }
+}
+
+// ── Google Calendar ──────────────────────────────────────────────────
+
+async function loadCalendar() {
+    const status = await callAPI('calendar_status');
+    const setupCard = $('#calendar-setup-card');
+    const statusEl = $('#calendar-setup-status');
+    const eventsCard = $('#calendar-events-card');
+    const createCard = $('#calendar-create-card');
+
+    if (!status) {
+        statusEl.innerHTML = '<p class="muted">App API unavailable.</p>';
+        return;
+    }
+
+    if (!status.credentials_present) {
+        setupCard.classList.remove('hidden');
+        statusEl.innerHTML = `
+            <p class="muted">Google Calendar isn't connected yet. One-time setup:</p>
+            <ol class="muted" style="margin: 12px 0 12px 20px; line-height: 1.8;">
+                <li>Go to <a href="https://console.cloud.google.com" target="_blank" style="color:var(--accent)">console.cloud.google.com</a></li>
+                <li>Create a project (any name, e.g. "Jarvis Tennis")</li>
+                <li>Enable the Google Calendar API</li>
+                <li>OAuth consent screen → External → fill in basics</li>
+                <li>Credentials → Create credentials → OAuth client ID → Desktop app</li>
+                <li>Download the JSON, rename it to <code>google_credentials.json</code></li>
+                <li>Save it to your vault folder, then come back and click Connect</li>
+            </ol>
+            <button class="btn-primary" id="check-creds">I've added the credentials</button>
+        `;
+        $('#check-creds')?.addEventListener('click', loadCalendar);
+        eventsCard.classList.add('hidden');
+        createCard.classList.add('hidden');
+        return;
+    }
+
+    if (!status.authenticated) {
+        setupCard.classList.remove('hidden');
+        statusEl.innerHTML = `
+            <p class="muted">Credentials found. Now authenticate — a browser tab will open for you to approve access.</p>
+            <button class="btn-primary" id="auth-google">Connect Google Calendar</button>
+            <span id="auth-status" class="muted" style="margin-left: 12px;"></span>
+        `;
+        $('#auth-google')?.addEventListener('click', async () => {
+            $('#auth-status').textContent = 'Opening browser...';
+            const r = await callAPI('calendar_authenticate');
+            if (r?.success) {
+                $('#auth-status').textContent = 'Connected.';
+                loadCalendar();
+            } else {
+                $('#auth-status').textContent = 'Failed: ' + (r?.error || 'unknown');
+            }
+        });
+        eventsCard.classList.add('hidden');
+        createCard.classList.add('hidden');
+        return;
+    }
+
+    // Authenticated
+    setupCard.classList.add('hidden');
+    eventsCard.classList.remove('hidden');
+    createCard.classList.remove('hidden');
+    setDefaultEventTimes();
+    loadCalendarEvents();
+}
+
+async function loadCalendarEvents() {
+    const list = $('#calendar-events-list');
+    list.innerHTML = '<div class="empty">Loading...</div>';
+    const result = await callAPI('calendar_upcoming', 7);
+    if (!result?.success) {
+        list.innerHTML = `<div class="empty">${escapeHtml(result?.error || 'Failed to load')}</div>`;
+        return;
+    }
+    if (!result.events || result.events.length === 0) {
+        list.innerHTML = '<div class="empty">Nothing scheduled in the next 7 days.</div>';
+        return;
+    }
+    list.innerHTML = result.events.map(ev => {
+        const start = formatEventTime(ev.start, ev.all_day);
+        return `
+            <div class="schedule-row">
+                <span class="date">${escapeHtml(start.date)}</span>
+                <span class="time">${escapeHtml(start.time)}</span>
+                <span class="players">${escapeHtml(ev.title)}${ev.location ? ' · ' + escapeHtml(ev.location) : ''}</span>
+                <span class="muted"></span>
+            </div>
+        `;
+    }).join('');
+}
+
+function formatEventTime(iso, allDay) {
+    if (allDay) return { date: iso.slice(5, 10), time: 'All day' };
+    const d = new Date(iso);
+    const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const timeStr = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+    return { date: dateStr, time: timeStr };
+}
+
+function setDefaultEventTimes() {
+    const startEl = $('#e-start');
+    const endEl = $('#e-end');
+    if (!startEl || startEl.value) return;
+    const now = new Date();
+    now.setHours(now.getHours() + 1, 0, 0, 0);
+    const end = new Date(now);
+    end.setHours(end.getHours() + 1);
+    startEl.value = toLocalISO(now);
+    endEl.value = toLocalISO(end);
+}
+
+function toLocalISO(d) {
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+async function handleEventSubmit(e) {
+    e.preventDefault();
+    const status = $('#event-status');
+    status.textContent = 'Creating...';
+
+    const startLocal = $('#e-start').value;
+    const endLocal = $('#e-end').value;
+
+    const payload = {
+        title: $('#e-title').value,
+        start_iso: new Date(startLocal).toISOString(),
+        end_iso: new Date(endLocal).toISOString(),
+        location: $('#e-location').value,
+        description: $('#e-description').value,
+    };
+
+    const res = await callAPI('calendar_create_event', payload);
+    if (res?.success) {
+        status.textContent = 'Added to Google Calendar.';
+        e.target.reset();
+        setDefaultEventTimes();
+        loadCalendarEvents();
     } else {
         status.textContent = 'Failed: ' + (res?.error || 'unknown');
     }
