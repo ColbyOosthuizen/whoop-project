@@ -1101,28 +1101,56 @@ function renderOutreachMessages(messages) {
         const name  = m.player?.name || 'Unknown';
         const phone = m.player?.phone || '';
         const draft = m.message || (m.error ? `Error: ${m.error}` : '');
-        const waLink = m.wa_link || '';
+        const hasPhone = !!phone;
 
-        // Build fresh wa_link from edited textarea value won't work until user edits,
-        // so just show the pre-generated link
         return `
-        <div class="outreach-msg-card">
+        <div class="outreach-msg-card" id="msg-card-${i}">
             <div class="outreach-msg-head">
                 <span class="outreach-msg-name">${esc(name)}</span>
-                ${phone ? `<span class="outreach-msg-phone">${esc(phone)}</span>` : ''}
+                ${hasPhone
+                    ? `<span class="outreach-msg-phone">${esc(phone)}</span>`
+                    : `<span class="outreach-msg-phone" style="color:var(--red)">No phone — add in Players</span>`}
             </div>
             <div style="padding:12px 16px">
                 <textarea class="outreach-msg-text form-input" id="msg-text-${i}" rows="4"
-                    style="width:100%;box-sizing:border-box;resize:vertical;font-family:inherit"
-                    onchange="refreshWaLink(${i})">${esc(draft)}</textarea>
+                    style="width:100%;box-sizing:border-box;resize:vertical;font-family:inherit">${esc(draft)}</textarea>
                 <div class="outreach-msg-actions" style="margin-top:10px">
-                    ${waLink ? `<a class="btn-whatsapp" id="wa-link-${i}" href="${esc(waLink)}" target="_blank">Open WhatsApp</a>` : '<span class="card-sub">No phone number — copy and send manually.</span>'}
+                    ${hasPhone
+                        ? `<button class="btn-whatsapp" id="wa-send-${i}" onclick="sendWhatsapp(${i}, '${esc(phone)}')">Send on WhatsApp</button>`
+                        : `<span class="card-sub">Add phone number to enable auto-send</span>`}
                     <button class="btn-chip" onclick="copyOutreachMsg(${i})">Copy</button>
-                    ${waLink ? '<span class="outreach-send-note">Pre-loaded message — you hit Send</span>' : ''}
+                    <span class="outreach-send-note" id="wa-status-${i}"></span>
                 </div>
             </div>
         </div>`;
     }).join('');
+}
+
+async function sendWhatsapp(i, phone) {
+    const msgEl  = $(`#msg-text-${i}`);
+    const btn    = $(`#wa-send-${i}`);
+    const status = $(`#wa-status-${i}`);
+    if (!msgEl || !btn) return;
+
+    const message = msgEl.value.trim();
+    if (!message) { status.textContent = 'Message is empty.'; return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    status.textContent = 'Opening WhatsApp Web — keep browser in focus...';
+
+    const result = await api('send_whatsapp', phone, message);
+
+    if (result?.success) {
+        btn.textContent = 'Sent ✓';
+        btn.style.background = 'var(--green)';
+        status.textContent = 'Delivered via WhatsApp Web';
+    } else {
+        btn.disabled = false;
+        btn.textContent = 'Send on WhatsApp';
+        status.textContent = 'Failed: ' + (result?.error || 'unknown');
+        status.style.color = 'var(--red)';
+    }
 }
 
 function copyOutreachMsg(i) {
@@ -1140,13 +1168,6 @@ function copyOutreachMsg(i) {
     });
 }
 
-function refreshWaLink(i) {
-    const el = $(`#msg-text-${i}`);
-    const link = $(`#wa-link-${i}`);
-    if (!el || !link) return;
-    const base = link.href.split('?text=')[0];
-    link.href = base + '?text=' + encodeURIComponent(el.value);
-}
 
 // ── Player roster (manage contacts) ──────────────────────────────────────────
 

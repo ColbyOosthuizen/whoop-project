@@ -786,6 +786,29 @@ Write ONLY the message text, ready to send."""
 
         return {"success": True, "messages": results}
 
+    def send_whatsapp(self, phone, message):
+        """Send a WhatsApp message via WhatsApp Web automation (pywhatkit)."""
+        try:
+            import pywhatkit as pwk
+
+            # Normalise phone number — must start with + and country code
+            phone = str(phone).strip().replace(" ", "").replace("-", "").replace("(", "").replace(")", "")
+            if not phone.startswith("+"):
+                phone = "+" + phone
+
+            # sendwhatmsg_instantly opens WhatsApp Web, waits for load, then sends
+            # wait_time=12 gives WhatsApp Web 12 seconds to load before typing
+            pwk.sendwhatmsg_instantly(
+                phone_no=phone,
+                message=message,
+                wait_time=12,
+                tab_close=True,
+                close_time=3,
+            )
+            return {"success": True}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
     # ── Training scheduler ────────────────────────────────────────────────────
 
     def schedule_propose_week(self):
