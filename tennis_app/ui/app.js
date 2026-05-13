@@ -39,7 +39,7 @@ function updateGreeting() {
 // ── Navigation ────────────────────────────────────────────────────────────────
 
 function bindNav() {
-    $$('.nav-item').forEach(btn => {
+    $$('.nav-item, .tab-settings').forEach(btn => {
         btn.addEventListener('click', () => switchView(btn.dataset.view));
     });
     $$('[data-view-shortcut]').forEach(btn => {
@@ -48,7 +48,7 @@ function bindNav() {
 }
 
 function switchView(view) {
-    $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
+    $$('.nav-item, .tab-settings').forEach(b => b.classList.toggle('active', b.dataset.view === view));
     $$('.view').forEach(v => v.classList.remove('active-view'));
     const target = $(`#view-${view}`);
     if (target) target.classList.add('active-view');
@@ -123,7 +123,7 @@ window._onSyncStatus = (type, status) => {
     const timeEl = type === 'whoop' ? $('#sync-whoop-time') : $('#sync-cal-time');
     if (!dot) return;
     dot.className = `sync-dot ${status}`;
-    if (status === 'ok') timeEl.textContent = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    if (status === 'ok' && timeEl) timeEl.textContent = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 };
 
 function initSync() {
@@ -165,40 +165,55 @@ async function loadDashboard() {
 function renderWhoop(data) {
     const recovery = parseInt(data.recovery, 10);
     const scoreEl = $('#recovery-score');
-    const zoneEl = $('#recovery-zone');
+    const zoneEl  = $('#recovery-zone');
 
     scoreEl.textContent = isNaN(recovery) ? '—' : `${recovery}`;
     zoneEl.className = 'recovery-zone';
 
+    let zoneHex = '#3a5270';
     if (isNaN(recovery)) {
         zoneEl.textContent = 'No data';
         zoneEl.classList.add('zone-none');
-        scoreEl.style.color = 'var(--text-muted)';
+        scoreEl.style.color = 'var(--muted)';
     } else if (recovery >= 67) {
         zoneEl.textContent = 'Green · Go';
         zoneEl.classList.add('zone-green');
         scoreEl.style.color = 'var(--green)';
+        zoneHex = '#10b981';
     } else if (recovery >= 34) {
         zoneEl.textContent = 'Yellow · Steady';
         zoneEl.classList.add('zone-yellow');
         scoreEl.style.color = 'var(--yellow)';
+        zoneHex = '#f59e0b';
     } else {
         zoneEl.textContent = 'Red · Rest';
         zoneEl.classList.add('zone-red');
         scoreEl.style.color = 'var(--red)';
+        zoneHex = '#ef4444';
     }
 
-    $('#metric-hrv').textContent   = data.hrv       ? `${data.hrv} ms`    : '—';
-    $('#metric-rhr').textContent   = data.rhr       ? `${data.rhr} bpm`   : '—';
-    $('#metric-spo2').textContent  = data.spo2      ? `${data.spo2}%`     : '—';
-    $('#metric-sleep').textContent = data.sleep_hours ? `${data.sleep_hours} h` : '—';
-    $('#metric-strain').textContent = data.strain   ?? '—';
-    $('#metric-calories').textContent = data.calories ? `${data.calories} kcal` : '—';
+    // Animate recovery ring
+    const ring = $('#recovery-ring-fill');
+    const ringSvg = $('.recovery-ring-svg');
+    if (ring && !isNaN(recovery)) {
+        const circ = 314.16; // 2π × 50
+        ring.style.strokeDashoffset = circ * (1 - recovery / 100);
+        ring.style.stroke = zoneHex;
+    }
+    if (ringSvg && !isNaN(recovery)) {
+        ringSvg.style.filter = `drop-shadow(0 0 18px ${zoneHex}50)`;
+    }
+
+    $('#metric-hrv').textContent      = data.hrv        ? `${data.hrv} ms`   : '—';
+    $('#metric-rhr').textContent      = data.rhr        ? `${data.rhr} bpm`  : '—';
+    $('#metric-spo2').textContent     = data.spo2       ? `${data.spo2}%`    : '—';
+    $('#metric-sleep').textContent    = data.sleep_hours ? `${data.sleep_hours}h` : '—';
+    $('#metric-strain').textContent   = data.strain     ?? '—';
+    $('#metric-calories').textContent = data.calories   ? `${data.calories} kcal` : '—';
 
     const rec = $('#recommendation');
-    rec.innerHTML = data.recommendation ? markdownToHtml(data.recommendation) : '';
+    if (rec) rec.innerHTML = data.recommendation ? markdownToHtml(data.recommendation) : '';
 
-    // Auto-fill recovery in match form
     const mr = $('#m-recovery');
     if (mr && !mr.value && !isNaN(recovery)) mr.value = recovery;
 }

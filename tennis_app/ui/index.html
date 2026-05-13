@@ -8,139 +8,86 @@
 <body>
 <div class="app">
 
-    <!-- ── Sidebar ─────────────────────────────────────────────────── -->
-    <aside class="sidebar">
-        <div class="brand">
-            <div class="brand-logo">J</div>
-            <div class="brand-text">
-                <div class="brand-title">Jarvis</div>
-                <div class="brand-subtitle">Tennis OS</div>
-            </div>
-        </div>
-
-        <nav class="nav">
-            <button class="nav-item active" data-view="dashboard">
-                <span class="nav-icon">
-                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5A1.5 1.5 0 012.5 1h3A1.5 1.5 0 017 2.5v3A1.5 1.5 0 015.5 7h-3A1.5 1.5 0 011 5.5v-3zm8 0A1.5 1.5 0 0110.5 1h3A1.5 1.5 0 0115 2.5v3A1.5 1.5 0 0113.5 7h-3A1.5 1.5 0 019 5.5v-3zm-8 8A1.5 1.5 0 012.5 9h3A1.5 1.5 0 017 10.5v3A1.5 1.5 0 015.5 15h-3A1.5 1.5 0 011 13.5v-3zm8 0A1.5 1.5 0 0110.5 9h3A1.5 1.5 0 0115 10.5v3A1.5 1.5 0 0113.5 15h-3A1.5 1.5 0 019 13.5v-3z"/></svg>
-                </span>
-                <span>Dashboard</span>
-            </button>
-            <button class="nav-item" data-view="chat">
-                <span class="nav-icon">
-                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M2.678 11.894a1 1 0 01.287.801 11 11 0 00.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 01.71-.074A8 8 0 008 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894z"/></svg>
-                </span>
-                <span>Chat</span>
-            </button>
-            <button class="nav-item" data-view="council">
-                <span class="nav-icon">
-                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 100-6 3 3 0 000 6zM5.216 14A2.238 2.238 0 015 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 005 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/><path d="M4.5 8a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>
-                </span>
-                <span>Council</span>
-            </button>
-            <button class="nav-item" data-view="outreach">
-                <span class="nav-icon">
-                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V4zm2-1a1 1 0 00-1 1v.217l7 4.2 7-4.2V4a1 1 0 00-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 002 13h12a1 1 0 00.966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/></svg>
-                </span>
-                <span>Outreach</span>
-            </button>
-            <button class="nav-item" data-view="matches">
-                <span class="nav-icon">
-                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1a2.5 2.5 0 012.5 2.5V4h-5v-.5A2.5 2.5 0 018 1zm3.5 3v-.5a3.5 3.5 0 10-7 0V4H1v10h14V4h-3.5zM2 5h12v8H2V5z"/></svg>
-                </span>
-                <span>Matches</span>
-            </button>
-            <button class="nav-item" data-view="calendar">
-                <span class="nav-icon">
-                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 0a.5.5 0 01.5.5V1h8V.5a.5.5 0 011 0V1h1a2 2 0 012 2v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3a2 2 0 012-2h1V.5a.5.5 0 01.5-.5zM1 4v10a1 1 0 001 1h12a1 1 0 001-1V4H1z"/></svg>
-                </span>
-                <span>Calendar</span>
-            </button>
-            <button class="nav-item" data-view="settings">
-                <span class="nav-icon">
-                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 01-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 01.872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 012.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 012.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 01.872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 01-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 01-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 110-5.858 2.929 2.929 0 010 5.858z"/></svg>
-                </span>
-                <span>Settings</span>
-            </button>
-        </nav>
-
-        <div class="sidebar-footer">
-            <div class="sync-status-bar">
-                <div class="sync-item" id="sync-whoop-indicator">
-                    <span class="sync-dot" id="sync-dot-whoop"></span>
-                    <span class="sync-label">WHOOP <span id="sync-whoop-time">—</span></span>
-                </div>
-                <div class="sync-item" id="sync-cal-indicator">
-                    <span class="sync-dot" id="sync-dot-cal"></span>
-                    <span class="sync-label">Cal <span id="sync-cal-time">—</span></span>
-                </div>
-            </div>
-            <button class="btn-text" id="open-vault">Open in Obsidian</button>
-        </div>
-    </aside>
-
     <!-- ── Main ────────────────────────────────────────────────────── -->
     <main class="main">
+
+        <!-- Topbar -->
         <header class="topbar">
-            <h1 id="view-title">Dashboard</h1>
+            <h1 id="view-title" class="topbar-title">Dashboard</h1>
             <div class="topbar-right">
+                <span class="sync-dot" id="sync-dot-whoop" title="WHOOP"></span>
+                <span class="sync-dot" id="sync-dot-cal" title="Calendar"></span>
                 <span id="datetime" class="topbar-time"></span>
+                <button class="tab-settings nav-item" data-view="settings" title="Settings">
+                    <svg viewBox="0 0 16 16" fill="currentColor" width="18" height="18"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 01-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 01.872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 012.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 012.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 01.872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 01-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 01-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 110-5.858 2.929 2.929 0 010 5.858z"/></svg>
+                </button>
             </div>
         </header>
 
+        <!-- Hidden time tracking elements for sync status -->
+        <span id="sync-whoop-time" style="display:none"></span>
+        <span id="sync-cal-time" style="display:none"></span>
+
+        <!-- View area -->
         <div class="view-area">
 
         <!-- ── Dashboard ───────────────────────────────────────────── -->
         <section class="view active-view" id="view-dashboard">
 
-            <!-- Greeting -->
-            <div class="dash-greeting">
-                <h2 class="dash-hi" id="greeting-text">Good morning</h2>
-                <p class="dash-sub">Here's your status for today.</p>
-            </div>
-
-            <!-- Top row: recovery + right stack -->
-            <div class="dash-top">
-                <div class="card recovery-card">
-                    <div class="card-header">
-                        <span class="card-label">Recovery</span>
-                        <button class="btn-icon" id="sync-whoop" title="Sync WHOOP">
-                            <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14"><path d="M8 3a5 5 0 104.546 2.914.5.5 0 00-.908-.417A4 4 0 118 4V3zm0 0l2 2-2 2V3z"/></svg>
-                        </button>
-                    </div>
-                    <div class="recovery-hero">
+            <!-- Recovery ring hero -->
+            <div class="card recovery-card">
+                <div class="recovery-card-top">
+                    <span class="card-label">Recovery</span>
+                    <button class="btn-icon" id="sync-whoop" title="Sync WHOOP">
+                        <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14"><path d="M8 3a5 5 0 104.546 2.914.5.5 0 00-.908-.417A4 4 0 118 4V3zm0 0l2 2-2 2V3z"/></svg>
+                    </button>
+                </div>
+                <div class="recovery-ring-wrap">
+                    <svg viewBox="0 0 120 120" class="recovery-ring-svg">
+                        <!-- Track -->
+                        <circle cx="60" cy="60" r="50" fill="none"
+                                stroke="rgba(255,255,255,0.05)" stroke-width="9"/>
+                        <!-- Progress -->
+                        <circle cx="60" cy="60" r="50" fill="none"
+                                stroke="#3a5270" stroke-width="9"
+                                stroke-linecap="round"
+                                stroke-dasharray="314.16" stroke-dashoffset="314.16"
+                                transform="rotate(-90 60 60)"
+                                id="recovery-ring-fill"/>
+                    </svg>
+                    <div class="recovery-ring-center">
                         <div class="recovery-num" id="recovery-score">—</div>
                         <div class="recovery-zone zone-none" id="recovery-zone">No data</div>
                     </div>
-                    <div class="recommendation-box" id="recommendation"></div>
                 </div>
+                <div class="recommendation-box" id="recommendation"></div>
+            </div>
 
-                <div class="dash-right">
-                    <!-- Body stats -->
-                    <div class="card">
-                        <div class="card-header">
-                            <span class="card-label">Body Stats</span>
-                        </div>
-                        <div class="metrics-grid">
-                            <div class="metric"><div class="metric-label">HRV</div><div class="metric-val" id="metric-hrv">—</div></div>
-                            <div class="metric"><div class="metric-label">RHR</div><div class="metric-val" id="metric-rhr">—</div></div>
-                            <div class="metric"><div class="metric-label">SpO₂</div><div class="metric-val" id="metric-spo2">—</div></div>
-                            <div class="metric"><div class="metric-label">Sleep</div><div class="metric-val" id="metric-sleep">—</div></div>
-                            <div class="metric"><div class="metric-label">Strain</div><div class="metric-val" id="metric-strain">—</div></div>
-                            <div class="metric"><div class="metric-label">Calories</div><div class="metric-val" id="metric-calories">—</div></div>
-                        </div>
-                    </div>
-                    <!-- Quick actions -->
-                    <div class="card">
-                        <div class="card-header">
-                            <span class="card-label">Quick Actions</span>
-                        </div>
-                        <div class="quick-actions">
-                            <button class="btn-primary" data-view-shortcut="chat">Ask Jarvis</button>
-                            <button class="btn-primary btn-council" data-view-shortcut="council">Brief the Council</button>
-                            <button class="btn-secondary" data-view-shortcut="matches">Log a Match</button>
-                            <button class="btn-secondary" id="sync-whoop-2">Sync WHOOP</button>
-                        </div>
-                    </div>
+            <!-- Metrics grid (2 col) -->
+            <div class="metrics-2col">
+                <div class="metric-tile">
+                    <div class="metric-label">HRV</div>
+                    <div class="metric-val" id="metric-hrv">—</div>
+                </div>
+                <div class="metric-tile">
+                    <div class="metric-label">Resting HR</div>
+                    <div class="metric-val" id="metric-rhr">—</div>
+                </div>
+                <div class="metric-tile">
+                    <div class="metric-label">Sleep</div>
+                    <div class="metric-val" id="metric-sleep">—</div>
+                </div>
+                <div class="metric-tile">
+                    <div class="metric-label">Strain</div>
+                    <div class="metric-val" id="metric-strain">—</div>
+                </div>
+                <div class="metric-tile">
+                    <div class="metric-label">SpO₂</div>
+                    <div class="metric-val" id="metric-spo2">—</div>
+                </div>
+                <div class="metric-tile">
+                    <div class="metric-label">Calories</div>
+                    <div class="metric-val" id="metric-calories">—</div>
                 </div>
             </div>
 
@@ -153,6 +100,26 @@
                 <div id="schedule-list" class="list-container">
                     <div class="empty-state">No matches scheduled.</div>
                 </div>
+            </div>
+
+            <!-- Quick actions -->
+            <div class="quick-row">
+                <button class="btn-quick" data-view-shortcut="chat">
+                    <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M2.678 11.894a1 1 0 01.287.801 11 11 0 00.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 01.71-.074A8 8 0 008 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894z"/></svg>
+                    Ask Jarvis
+                </button>
+                <button class="btn-quick btn-quick-council" data-view-shortcut="council">
+                    <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 100-6 3 3 0 000 6zM5.216 14A2.238 2.238 0 015 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 005 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/><path d="M4.5 8a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>
+                    Council
+                </button>
+                <button class="btn-quick" data-view-shortcut="matches">
+                    <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M8 1a2.5 2.5 0 012.5 2.5V4h-5v-.5A2.5 2.5 0 018 1zm3.5 3v-.5a3.5 3.5 0 10-7 0V4H1v10h14V4h-3.5zM2 5h12v8H2V5z"/></svg>
+                    Log Match
+                </button>
+                <button class="btn-quick" id="sync-whoop-2">
+                    <svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16"><path d="M8 3a5 5 0 104.546 2.914.5.5 0 00-.908-.417A4 4 0 118 4V3zm0 0l2 2-2 2V3z"/></svg>
+                    Sync
+                </button>
             </div>
         </section>
 
@@ -196,10 +163,8 @@
                 <button class="btn-primary" id="council-ask">Brief Council</button>
             </div>
 
-            <!-- Council grid (hidden until response) -->
             <div id="council-output" class="council-output"></div>
 
-            <!-- Message drafting -->
             <div class="card draft-card">
                 <div class="card-header">
                     <span class="card-label">Draft a Message</span>
@@ -221,8 +186,6 @@
 
         <!-- ── Outreach ─────────────────────────────────────────────── -->
         <section class="view" id="view-outreach">
-
-            <!-- Capacity bar -->
             <div class="card outreach-capacity-card" id="capacity-card">
                 <div class="card-header">
                     <span class="card-label">Today's Capacity</span>
@@ -233,12 +196,11 @@
                 </div>
             </div>
 
-            <!-- Send messages -->
             <div class="card">
                 <div class="card-header">
                     <span class="card-label">Reach Out</span>
                 </div>
-                <p class="card-sub">Select players, review the AI-drafted messages, then open WhatsApp for each one. You hit Send — responses are yours to handle.</p>
+                <p class="card-sub">Select players, review the AI-drafted messages, then send via WhatsApp.</p>
 
                 <div class="outreach-slots" id="outreach-slots" style="margin-bottom:14px;display:none">
                     <div class="form-row">
@@ -261,10 +223,8 @@
                 </div>
             </div>
 
-            <!-- Generated messages -->
             <div id="outreach-messages"></div>
 
-            <!-- Add / manage players -->
             <div class="card">
                 <div class="card-header">
                     <span class="card-label">Players</span>
@@ -365,7 +325,6 @@
             </div>
 
             <div class="card" id="calendar-events-card" style="padding:0;overflow:hidden">
-                <!-- View toggle bar -->
                 <div class="cal-topbar">
                     <div class="cal-view-toggle">
                         <button class="cal-toggle-btn active" id="toggle-month">Month</button>
@@ -376,7 +335,6 @@
                     </button>
                 </div>
 
-                <!-- Month view -->
                 <div id="cal-month-view" class="cal-container">
                     <div class="cal-left">
                         <div class="cal-nav">
@@ -404,7 +362,6 @@
                     </div>
                 </div>
 
-                <!-- 3-day view -->
                 <div id="cal-3day-view" class="hidden">
                     <div class="three-day-nav">
                         <button class="cal-nav-btn" id="threeday-prev">&#8249;</button>
@@ -416,7 +373,6 @@
                 </div>
             </div>
 
-            <!-- iCloud card — content written by JS based on connection status -->
             <div class="card hidden" id="icloud-card"></div>
 
             <div class="card hidden" id="schedule-plan-card">
@@ -424,7 +380,7 @@
                     <span class="card-label">Plan My Week</span>
                     <button class="btn-chip" id="plan-week">Generate</button>
                 </div>
-                <p class="card-sub">Jarvis reads your calendar and WHOOP recovery, finds open windows, and proposes training blocks. You approve each before it lands on your calendar.</p>
+                <p class="card-sub">Jarvis reads your calendar and WHOOP recovery, finds open windows, and proposes training blocks.</p>
                 <div id="plan-output"></div>
             </div>
 
@@ -467,7 +423,7 @@
                 <div class="card-header"><span class="card-label">Jarvis AI</span></div>
 
                 <div id="anthropic-setup">
-                    <p class="card-sub" style="margin-bottom:16px">Add your Anthropic API key to enable the Chat and Council features. Get one at <span style="color:var(--accent)">console.anthropic.com</span></p>
+                    <p class="card-sub" style="margin-bottom:16px">Add your Anthropic API key to enable Chat and Council. Get one at <span style="color:var(--accent)">console.anthropic.com</span></p>
                     <div class="form-row" style="max-width:500px">
                         <label>Anthropic API Key</label>
                         <div style="display:flex;gap:8px">
@@ -496,10 +452,39 @@
                     <span class="setting-label">Calendar auto-sync</span>
                     <code class="setting-val">Every 5 minutes</code>
                 </div>
+                <div class="setting-row">
+                    <span class="setting-label">Obsidian</span>
+                    <button class="btn-chip" id="open-vault">Open in Obsidian</button>
+                </div>
             </div>
         </section>
 
         </div><!-- /view-area -->
+
+        <!-- ── Bottom tab bar ────────────────────────────────────────── -->
+        <nav class="tab-bar">
+            <button class="tab-item nav-item active" data-view="dashboard">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M1 2.5A1.5 1.5 0 012.5 1h3A1.5 1.5 0 017 2.5v3A1.5 1.5 0 015.5 7h-3A1.5 1.5 0 011 5.5v-3zm8 0A1.5 1.5 0 0110.5 1h3A1.5 1.5 0 0115 2.5v3A1.5 1.5 0 0113.5 7h-3A1.5 1.5 0 019 5.5v-3zm-8 8A1.5 1.5 0 012.5 9h3A1.5 1.5 0 017 10.5v3A1.5 1.5 0 015.5 15h-3A1.5 1.5 0 011 13.5v-3zm8 0A1.5 1.5 0 0110.5 9h3A1.5 1.5 0 0115 10.5v3A1.5 1.5 0 0113.5 15h-3A1.5 1.5 0 019 13.5v-3z"/></svg>
+                <span>Home</span>
+            </button>
+            <button class="tab-item nav-item" data-view="chat">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M2.678 11.894a1 1 0 01.287.801 11 11 0 00.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 01.71-.074A8 8 0 008 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894z"/></svg>
+                <span>Chat</span>
+            </button>
+            <button class="tab-item nav-item" data-view="council">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 100-6 3 3 0 000 6zM5.216 14A2.238 2.238 0 015 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 005 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/><path d="M4.5 8a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"/></svg>
+                <span>Council</span>
+            </button>
+            <button class="tab-item nav-item" data-view="outreach">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M0 4a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H2a2 2 0 01-2-2V4zm2-1a1 1 0 00-1 1v.217l7 4.2 7-4.2V4a1 1 0 00-1-1H2zm13 2.383l-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 002 13h12a1 1 0 00.966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/></svg>
+                <span>Outreach</span>
+            </button>
+            <button class="tab-item nav-item" data-view="calendar">
+                <svg viewBox="0 0 16 16" fill="currentColor"><path d="M3.5 0a.5.5 0 01.5.5V1h8V.5a.5.5 0 011 0V1h1a2 2 0 012 2v11a2 2 0 01-2 2H2a2 2 0 01-2-2V3a2 2 0 012-2h1V.5a.5.5 0 01.5-.5zM1 4v10a1 1 0 001 1h12a1 1 0 001-1V4H1z"/></svg>
+                <span>Calendar</span>
+            </button>
+        </nav>
+
     </main>
 </div>
 <script src="app.js"></script>
