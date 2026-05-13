@@ -284,24 +284,41 @@ html, body {
 
 /* ── Views ───────────────────────────────────────────────────────── */
 
-.view {
+.view-area {
+    position: relative;
     flex: 1;
+    overflow: hidden;
+}
+
+.view {
+    position: absolute;
+    inset: 0;
     overflow-y: auto;
     padding: 28px 32px 52px;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    position: relative;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 240ms var(--ease), visibility 0s linear 240ms;
+    z-index: 0;
+}
+
+.view.active-view {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
     z-index: 1;
-    animation: viewIn 200ms var(--ease) both;
+    transition: opacity 240ms var(--ease), visibility 0s linear 0s;
+    animation: viewSlideIn 240ms var(--ease) both;
 }
 
-@keyframes viewIn {
-    from { opacity:0; transform: translateY(12px); }
-    to   { opacity:1; transform: translateY(0); }
+@keyframes viewSlideIn {
+    from { opacity: 0; transform: translateY(13px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-.view.hidden { display: none !important; }
 .hidden { display: none !important; }
 
 /* ── Cards ────────────────────────────────────────────────────────── */
@@ -357,6 +374,37 @@ html, body {
 
 /* ── Dashboard ───────────────────────────────────────────────────── */
 
+.dash-greeting {
+    padding: 6px 0 4px;
+}
+
+.dash-hi {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--text);
+    line-height: 1.1;
+}
+
+.dash-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.dash-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+.dash-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .dash-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -374,7 +422,7 @@ html, body {
     display: flex;
     align-items: flex-end;
     gap: 16px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .recovery-num {

@@ -20,12 +20,20 @@ function initApp() {
     bindNav();
     bindActions();
     startClock();
+    updateGreeting();
     setDefaultDate();
     initChat();
     initCouncil();
     initSync();
     bindCalNav();
     initOutreach();
+}
+
+function updateGreeting() {
+    const h = new Date().getHours();
+    const text = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+    const el = $('#greeting-text');
+    if (el) el.textContent = text;
 }
 
 // ── Navigation ────────────────────────────────────────────────────────────────
@@ -41,15 +49,9 @@ function bindNav() {
 
 function switchView(view) {
     $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
-    $$('.view').forEach(s => s.classList.add('hidden'));
+    $$('.view').forEach(v => v.classList.remove('active-view'));
     const target = $(`#view-${view}`);
-    if (target) {
-        target.classList.remove('hidden');
-        // Re-trigger the viewIn animation on each switch
-        target.style.animation = 'none';
-        target.offsetHeight; // reflow
-        target.style.animation = '';
-    }
+    if (target) target.classList.add('active-view');
 
     const titles = {
         dashboard: 'Dashboard',
