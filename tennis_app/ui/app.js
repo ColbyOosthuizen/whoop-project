@@ -1096,6 +1096,18 @@ function renderOutreachMessages(messages) {
         return;
     }
 
+    // Default start = next hour, duration = 1.5 h
+    const defaultStart = (() => {
+        const d = new Date();
+        d.setHours(d.getHours() + 1, 0, 0, 0);
+        return toLocalISO(d);
+    })();
+    const defaultEnd = (() => {
+        const d = new Date(defaultStart);
+        d.setMinutes(d.getMinutes() + 90);
+        return toLocalISO(d);
+    })();
+
     // Python returns: {player: {...}, message: "...", wa_link: "...", error: null}
     container.innerHTML = messages.map((m, i) => {
         const name  = m.player?.name || 'Unknown';
@@ -1114,16 +1126,79 @@ function renderOutreachMessages(messages) {
             <div style="padding:12px 16px">
                 <textarea class="outreach-msg-text form-input" id="msg-text-${i}" rows="4"
                     style="width:100%;box-sizing:border-box;resize:vertical;font-family:inherit">${esc(draft)}</textarea>
+
                 <div class="outreach-msg-actions" style="margin-top:10px">
                     ${hasPhone
                         ? `<button class="btn-whatsapp" id="wa-send-${i}" onclick="sendWhatsapp(${i}, '${esc(phone)}')">Send on WhatsApp</button>`
                         : `<span class="card-sub">Add phone number to enable auto-send</span>`}
                     <button class="btn-chip" onclick="copyOutreachMsg(${i})">Copy</button>
+                    <button class="btn-chip" onclick="toggleCalBlock(${i})">+ Calendar</button>
                     <span class="outreach-send-note" id="wa-status-${i}"></span>
+                </div>
+
+                <!-- Calendar block (hidden until + Calendar clicked) -->
+                <div id="cal-block-${i}" class="hidden" style="margin-top:12px;padding:12px;background:rgba(14,165,233,0.06);border:1px solid rgba(14,165,233,0.2);border-radius:8px">
+                    <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:10px">Block match in calendar</div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+                        <div class="form-row" style="margin:0">
+                            <label style="font-size:11px">Start</label>
+                            <input type="datetime-local" id="cal-start-${i}" class="form-input" value="${defaultStart}" style="font-size:12px">
+                        </div>
+                        <div class="form-row" style="margin:0">
+                            <label style="font-size:11px">End</label>
+                            <input type="datetime-local" id="cal-end-${i}" class="form-input" value="${defaultEnd}" style="font-size:12px">
+                        </div>
+                    </div>
+                    <div class="form-row" style="margin:0 0 8px">
+                        <label style="font-size:11px">Location (optional)</label>
+                        <input type="text" id="cal-loc-${i}" class="form-input" placeholder="e.g. City Tennis Club" style="font-size:12px">
+                    </div>
+                    <div style="display:flex;gap:8px;align-items:center">
+                        <button class="btn-primary" style="font-size:12px;padding:6px 14px" onclick="addMatchToCalendar(${i}, '${esc(name)}')">Add to Google Calendar</button>
+                        <span class="status-text" id="cal-status-${i}"></span>
+                    </div>
                 </div>
             </div>
         </div>`;
     }).join('');
+}
+
+function toggleCalBlock(i) {
+    const block = $(`#cal-block-${i}`);
+    if (!block) return;
+    block.classList.toggle('hidden');
+}
+
+async function addMatchToCalendar(i, playerName) {
+    const start   = $(`#cal-start-${i}`)?.value;
+    const end     = $(`#cal-end-${i}`)?.value;
+    const loc     = $(`#cal-loc-${i}`)?.value?.trim() || '';
+    const status  = $(`#cal-status-${i}`);
+
+    if (!start || !end) { status.textContent = 'Set start and end times.'; return; }
+    if (new Date(end) <= new Date(start)) { status.textContent = 'End must be after start.'; return; }
+
+    status.textContent = 'Adding...';
+
+    const result = await api('calendar_create_event', {
+        title:       `Tennis — ${playerName}`,
+        start_iso:   new Date(start).toISOString(),
+        end_iso:     new Date(end).toISOString(),
+        location:    loc,
+        description: `Match proposed via Jarvis outreach.`,
+    });
+
+    if (result?.success) {
+        status.textContent = 'Added to Google Calendar ✓';
+        status.style.color = 'var(--green)';
+        // Refresh calendar if it's open
+        if ($('#view-calendar') && !$('#view-calendar').classList.contains('hidden')) {
+            loadCalendarEvents();
+        }
+    } else {
+        status.textContent = 'Failed: ' + (result?.error || 'unknown');
+        status.style.color = 'var(--red)';
+    }
 }
 
 async function sendWhatsapp(i, phone) {
