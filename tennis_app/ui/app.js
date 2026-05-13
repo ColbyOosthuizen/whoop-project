@@ -43,7 +43,13 @@ function switchView(view) {
     $$('.nav-item').forEach(b => b.classList.toggle('active', b.dataset.view === view));
     $$('.view').forEach(s => s.classList.add('hidden'));
     const target = $(`#view-${view}`);
-    if (target) target.classList.remove('hidden');
+    if (target) {
+        target.classList.remove('hidden');
+        // Re-trigger the viewIn animation on each switch
+        target.style.animation = 'none';
+        target.offsetHeight; // reflow
+        target.style.animation = '';
+    }
 
     const titles = {
         dashboard: 'Dashboard',
