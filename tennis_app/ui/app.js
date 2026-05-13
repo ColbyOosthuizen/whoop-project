@@ -170,7 +170,7 @@ function renderWhoop(data) {
     scoreEl.textContent = isNaN(recovery) ? '—' : `${recovery}`;
     zoneEl.className = 'recovery-zone';
 
-    let zoneHex = '#3a5270';
+    let zoneHex = '#0a2030';
     if (isNaN(recovery)) {
         zoneEl.textContent = 'No data';
         zoneEl.classList.add('zone-none');
@@ -179,29 +179,32 @@ function renderWhoop(data) {
         zoneEl.textContent = 'Green · Go';
         zoneEl.classList.add('zone-green');
         scoreEl.style.color = 'var(--green)';
-        zoneHex = '#10b981';
+        scoreEl.style.textShadow = '0 0 32px rgba(0,255,136,0.6)';
+        zoneHex = '#00ff88';
     } else if (recovery >= 34) {
         zoneEl.textContent = 'Yellow · Steady';
         zoneEl.classList.add('zone-yellow');
         scoreEl.style.color = 'var(--yellow)';
-        zoneHex = '#f59e0b';
+        scoreEl.style.textShadow = '0 0 32px rgba(255,214,0,0.6)';
+        zoneHex = '#ffd600';
     } else {
         zoneEl.textContent = 'Red · Rest';
         zoneEl.classList.add('zone-red');
         scoreEl.style.color = 'var(--red)';
-        zoneHex = '#ef4444';
+        scoreEl.style.textShadow = '0 0 32px rgba(255,34,68,0.6)';
+        zoneHex = '#ff2244';
     }
 
-    // Animate recovery ring
+    // Animate recovery ring (r=60, circumference = 2π×60 = 376.99)
     const ring = $('#recovery-ring-fill');
     const ringSvg = $('.recovery-ring-svg');
     if (ring && !isNaN(recovery)) {
-        const circ = 314.16; // 2π × 50
+        const circ = 376.99;
         ring.style.strokeDashoffset = circ * (1 - recovery / 100);
         ring.style.stroke = zoneHex;
     }
     if (ringSvg && !isNaN(recovery)) {
-        ringSvg.style.filter = `drop-shadow(0 0 18px ${zoneHex}50)`;
+        ringSvg.style.filter = `drop-shadow(0 0 22px ${zoneHex}55)`;
     }
 
     $('#metric-hrv').textContent      = data.hrv        ? `${data.hrv} ms`   : '—';
